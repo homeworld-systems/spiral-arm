@@ -1,8 +1,14 @@
 cmake_minimum_required(VERSION 3.14)
 project(spiral-arm)
 
-file(GLOB SOURCES "src/*.cpp" "src/*/*.cpp")
+add_library(spiral-arm STATIC
+    src/spiral_camera.cpp
+    src/spiral_graphics.cpp
+    src/spiral_scene.cpp
+    src/spiral_ui.cpp
+    src/spiral_window.cpp
+)
 
-add_library(spiral-arm STATIC ${SOURCES})
-
-target_include_directories(spiral-arm PUBLIC "include/*.cpp" "include/*/*.cpp")
+target_include_directories(spiral-arm PUBLIC
+    include
+)
