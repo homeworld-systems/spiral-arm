@@ -47,6 +47,9 @@ build/
 Build/
 build-*/
 
+# Vendor directories
+vendor/
+
 # CMake generated files
 CMakeFiles/
 CMakeCache.txt

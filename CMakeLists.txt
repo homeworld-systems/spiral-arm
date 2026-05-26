@@ -25,16 +25,18 @@ FetchContent_Declare(
     OVERRIDE_FIND_PACKAGE
 )
 
+FetchContent_MakeAvailable(SDL3)
+
 # SDL3_image
 
 FetchContent_Declare(
     SDL3_image
-    GIT_REPOSITORY https://github.com/libsdl-org/SDL_image
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
     GIT_TAG origin/main
     OVERRIDE_FIND_PACKAGE
 )
 
-FetchContent_MakeAvailable(SDL3 SDL3_image)
+FetchContent_MakeAvailable(SDL3_image)
 
 find_package(SDL3 REQUIRED)
 find_package(SDL3_image REQUIRED)
