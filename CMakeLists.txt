@@ -13,12 +13,10 @@ set(SDL_SHARED OFF CACHE BOOL "" FORCE)
 set(SDL_STATIC ON CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
+include(FetchContent)
+set(FETCHCONTENT_BASE_DIR "${CMAKE_SOURCE_DIR}/vendor")
 
 # SDL3
-
-include(FetchContent)
-
-set(FETCHCONTENT_BASE_DIR "vendor/sdl3")
 
 FetchContent_Declare(
     SDL3
@@ -27,13 +25,7 @@ FetchContent_Declare(
     OVERRIDE_FIND_PACKAGE
 )
 
-FetchContent_MakeAvailable(SDL3)
-
-# SDL_image
-
-include(FetchContent)
-
-set(FETCHCONTENT_BASE_DIR "vendor/sdl3_image")
+# SDL3_image
 
 FetchContent_Declare(
     SDL3_image
@@ -42,7 +34,7 @@ FetchContent_Declare(
     OVERRIDE_FIND_PACKAGE
 )
 
-FetchContent_MakeAvailable(SDL3_image)
+FetchContent_MakeAvailable(SDL3 SDL3_image)
 
 find_package(SDL3 REQUIRED)
 find_package(SDL3_image REQUIRED)
