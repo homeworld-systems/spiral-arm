@@ -14,7 +14,7 @@ void SPIRAL_Initialize (const char* window_name) {
 
     SPIRAL_main_window = new SPIRAL_Window(window_name, FRAME_WIDTH, FRAME_HEIGHT, SCALE_FACTOR);
     SPIRAL_main_window->create();
-    SPIRAL_main_window->clear();
+    SPIRAL_main_window->clear(WHITE);
 
 }
 
