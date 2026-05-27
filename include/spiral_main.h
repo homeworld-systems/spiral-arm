@@ -2,9 +2,9 @@
 
 # define SPIRAL_MAIN_H
 
-# include "spiral_window.h"
+# include <spiral_window.h>
 
-SPIRAL_Window* main_window;
+extern SPIRAL_Window* main_window;
 
 void SPIRAL_Initialize (const char* window_name);
 

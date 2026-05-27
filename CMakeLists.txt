@@ -49,7 +49,12 @@ add_library(spiral-arm STATIC
     src/spiral_scene.cpp
     src/spiral_ui.cpp
     src/spiral_window.cpp
+    src/spiral_main.cpp
 )
+
+# Library linking
+
+target_link_libraries(spiral-arm PUBLIC SDL3::SDL3-static SDL3_image::SDL3_image-static)
 
 # Includes
 
