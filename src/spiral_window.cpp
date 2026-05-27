@@ -1,4 +1,5 @@
 # include "spiral_window.h"
+# include <algorithm>
 
 void SPIRAL_Window::create () {
 
@@ -74,5 +75,18 @@ void SPIRAL_Window::clear (SPIRAL_Color color) {
 void SPIRAL_Window::drawPixel (int x, int y, SPIRAL_Color color) {
 
     buffer[(uint32_t)x + (uint32_t)y * width] = color;
+
+}
+
+void SPIRAL_Window::drawRectangle (int x, int y, int w, int e, SPIRAL_Color color) {
+
+    int clamped_width = std::max(0, std::min(x + w, width) - x);
+    int clamped_height = std::max(0, std::min(y + e, height) - y);
+
+    for (int k = y; k < y + clamped_height; k++) {
+        for (int h = x; h < x + clamped_width; h++) {
+            buffer[(uint32_t)h + (uint32_t)k * width] = color;
+        }
+    }
 
 }

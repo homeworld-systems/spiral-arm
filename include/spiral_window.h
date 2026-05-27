@@ -32,7 +32,10 @@ class SPIRAL_Window {
 
     // Drawing Functions
     void clear (SPIRAL_Color color);
+
+    // Primitives
     void drawPixel (int x, int y, SPIRAL_Color color);
+    void drawRectangle (int x, int y, int width, int height, SPIRAL_Color color);
 
 };
 
