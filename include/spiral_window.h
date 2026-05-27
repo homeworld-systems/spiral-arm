@@ -4,7 +4,7 @@
 
 # include <spiral_graphics.h>
 
-# include <SDL3/SDL_main.h>
+# include <SDL3/SDL.h>
 # include <SDL3/SDL_render.h>
 
 class SPIRAL_Window {
