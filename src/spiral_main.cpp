@@ -18,6 +18,18 @@ void SPIRAL_Initialize (const char* window_name) {
 
 }
 
+void SPIRAL_MainMenu (void (*main_menu_init)(), void (*main_menu_loop)()) {
+
+    main_menu_init();
+    
+    do {
+        
+        main_menu_loop();
+        
+    } while (SPIRAL_main_window->update());
+
+}
+
 void SPIRAL_RunChapter (void (*chapter_init)(), void (*chapter_loop)()) {
 
     // Initialization things
