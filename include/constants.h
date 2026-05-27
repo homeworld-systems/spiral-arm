@@ -2,8 +2,8 @@
 
 # define CONSTANTS_H
 
-extern int FRAME_WIDTH;
-extern int FRAME_HEIGHT;
-extern int SCALE_FACTOR;
+extern const int FRAME_WIDTH;
+extern const int FRAME_HEIGHT;
+extern const int SCALE_FACTOR;
 
 # endif
