@@ -63,10 +63,10 @@ void SPIRAL_Window::gracefulExit () {
 
 }
 
-void SPIRAL_Window::clear () {
+void SPIRAL_Window::clear (SPIRAL_Color color) {
 
     for (int p = 0; p < width * height; p++) {
-        buffer[(uint32_t)p] = WHITE;
+        buffer[(uint32_t)p] = color;
     }
 
 }

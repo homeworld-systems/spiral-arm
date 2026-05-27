@@ -6,15 +6,15 @@
 # include <cstdio>
 # include <chrono>
 
-SPIRAL_Window* main_window;
+SPIRAL_Window* SPIRAL_main_window;
 
 void SPIRAL_Initialize (const char* window_name) {
 
     printf("STARSHIFT.\n");
 
-    main_window = new SPIRAL_Window(window_name, FRAME_WIDTH, FRAME_HEIGHT, SCALE_FACTOR);
-    main_window->create();
-    main_window->clear();
+    SPIRAL_main_window = new SPIRAL_Window(window_name, FRAME_WIDTH, FRAME_HEIGHT, SCALE_FACTOR);
+    SPIRAL_main_window->create();
+    SPIRAL_main_window->clear();
 
 }
 
@@ -41,12 +41,12 @@ void SPIRAL_RunChapter (void (*chapter_init)(), void (*chapter_loop)()) {
             prev_tick_time = curr_tick_time;
         }
         
-    } while (main_window->update());
+    } while (SPIRAL_main_window->update());
 
 }
 
 void SPIRAL_ExitChapter () {
 
-    main_window->gracefulExit();
+    SPIRAL_main_window->gracefulExit();
 
 }

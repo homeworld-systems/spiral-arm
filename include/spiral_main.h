@@ -4,7 +4,7 @@
 
 # include <spiral_window.h>
 
-extern SPIRAL_Window* main_window;
+extern SPIRAL_Window* SPIRAL_main_window;
 
 void SPIRAL_Initialize (const char* window_name);
 

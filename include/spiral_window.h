@@ -31,7 +31,7 @@ class SPIRAL_Window {
     void redrawScene ();
 
     // Drawing Functions
-    void clear ();
+    void clear (SPIRAL_Color color);
     void drawPixel (int x, int y, SPIRAL_Color color);
 
 };
