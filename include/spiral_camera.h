@@ -2,6 +2,10 @@
 
 # define SPIRAL_CAMERA_H
 
-class SPIRAL_Camera {};
+namespace SPIRAL {
+    
+    class Camera {};
+
+}
 
 # endif

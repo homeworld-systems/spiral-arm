@@ -2,8 +2,14 @@
 
 # define SPIRAL_SCENE_H
 
-class SPIRAL_Sprite {};
-class SPIRAL_Scene {};
-class SPIRAL_Map {};
+namespace SPIRAL {
+
+    class Sprite {};
+
+    class Scene {};
+
+    class Map {};
+
+}
 
 # endif

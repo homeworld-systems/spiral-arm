@@ -3,40 +3,46 @@
 # define SPIRAL_WINDOW_H
 
 # include <spiral_graphics.h>
+# include <spiral_ui.h>
 
 # include <SDL3/SDL.h>
 # include <SDL3/SDL_render.h>
 
-class SPIRAL_Window {
+namespace SPIRAL {
 
-    SDL_Window* __window;
-    SDL_Renderer* __renderer;
-    SDL_Texture* __texture;
+    class Window {
 
-    int width;
-    int height;
-    int scale;
-    const char* name;
-    
-    public:
+        SDL_Window* __window;
+        SDL_Renderer* __renderer;
+        SDL_Texture* __texture;
 
-    SPIRAL_Color* buffer;
+        int width;
+        int height;
+        int scale;
+        const char* name;
+        
+        public:
 
-    SPIRAL_Window (const char* n, int w, int h, int s) : name(n), width(w), height(h), scale(s) {}
-    void create ();
-    bool update ();
-    void gracefulExit ();
+        Color* buffer;
 
-    // stuff
-    void redrawScene ();
+        Window (const char* n, int w, int h, int s) : name(n), width(w), height(h), scale(s) {}
+        void create ();
+        bool update ();
+        void gracefulExit ();
 
-    // Drawing Functions
-    void clear (SPIRAL_Color color);
+        // stuff
+        void redrawScene ();
 
-    // Primitives
-    void drawPixel (int x, int y, SPIRAL_Color color);
-    void drawRectangle (int x, int y, int width, int height, SPIRAL_Color color);
+        // Drawing Functions
+        void clear (Color color);
 
-};
+        // Primitives
+        void drawPixel (int x, int y, Color color);
+        void drawRectangle (int x, int y, int width, int height, Color color);
+        void drawTextBox (TextBox b);
+
+    };
+
+}
 
 # endif

@@ -4,14 +4,18 @@
 
 # include <spiral_window.h>
 
-extern SPIRAL_Window* SPIRAL_main_window;
+namespace SPIRAL {
 
-void SPIRAL_Initialize (const char* window_name);
+    extern Window* main_window;
 
-void SPIRAL_MainMenu (void (*main_menu_init)(), void (*main_menu_loop)());
+    void Initialize (const char* window_name);
 
-void SPIRAL_RunChapter (void (*chapter_init)(), void (*chapter_loop)());
+    void MainMenu (void (*main_menu_init)(), void (*main_menu_loop)());
 
-void SPIRAL_ExitChapter ();
+    void RunChapter (void (*chapter_init)(), void (*chapter_loop)());
+
+    void ExitChapter ();
+
+}
 
 # endif

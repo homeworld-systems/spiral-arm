@@ -1,7 +1,7 @@
 # include "spiral_window.h"
 # include <algorithm>
 
-void SPIRAL_Window::create () {
+void SPIRAL::Window::create () {
 
     SDL_Init(SDL_INIT_VIDEO);
     buffer = new uint32_t[width * height];
@@ -13,7 +13,7 @@ void SPIRAL_Window::create () {
     
 }
 
-bool SPIRAL_Window::update () {
+bool SPIRAL::Window::update () {
 
     SDL_Event e;
 
@@ -53,7 +53,7 @@ bool SPIRAL_Window::update () {
 
 }
 
-void SPIRAL_Window::gracefulExit () {
+void SPIRAL::Window::gracefulExit () {
     
     delete buffer;
     
@@ -64,7 +64,7 @@ void SPIRAL_Window::gracefulExit () {
 
 }
 
-void SPIRAL_Window::clear (SPIRAL_Color color) {
+void SPIRAL::Window::clear (SPIRAL::Color color) {
 
     for (int p = 0; p < width * height; p++) {
         buffer[(uint32_t)p] = color;
@@ -72,13 +72,13 @@ void SPIRAL_Window::clear (SPIRAL_Color color) {
 
 }
 
-void SPIRAL_Window::drawPixel (int x, int y, SPIRAL_Color color) {
+void SPIRAL::Window::drawPixel (int x, int y, SPIRAL::Color color) {
 
     buffer[(uint32_t)x + (uint32_t)y * width] = color;
 
 }
 
-void SPIRAL_Window::drawRectangle (int x, int y, int w, int e, SPIRAL_Color color) {
+void SPIRAL::Window::drawRectangle (int x, int y, int w, int e, SPIRAL::Color color) {
 
     int clamped_width = std::max(0, std::min(x + w, width) - x);
     int clamped_height = std::max(0, std::min(y + e, height) - y);

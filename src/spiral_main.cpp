@@ -6,19 +6,17 @@
 # include <cstdio>
 # include <chrono>
 
-SPIRAL_Window* SPIRAL_main_window;
-
-void SPIRAL_Initialize (const char* window_name) {
+void SPIRAL::Initialize (const char* window_name) {
 
     printf("STARSHIFT.\n");
 
-    SPIRAL_main_window = new SPIRAL_Window(window_name, FRAME_WIDTH, FRAME_HEIGHT, SCALE_FACTOR);
-    SPIRAL_main_window->create();
-    SPIRAL_main_window->clear(WHITE);
+    SPIRAL::main_window = new SPIRAL::Window(window_name, FRAME_WIDTH, FRAME_HEIGHT, SCALE_FACTOR);
+    SPIRAL::main_window->create();
+    SPIRAL::main_window->clear(WHITE);
 
 }
 
-void SPIRAL_MainMenu (void (*main_menu_init)(), void (*main_menu_loop)()) {
+void SPIRAL::MainMenu (void (*main_menu_init)(), void (*main_menu_loop)()) {
 
     main_menu_init();
     
@@ -26,11 +24,11 @@ void SPIRAL_MainMenu (void (*main_menu_init)(), void (*main_menu_loop)()) {
         
         main_menu_loop();
         
-    } while (SPIRAL_main_window->update());
+    } while (SPIRAL::main_window->update());
 
 }
 
-void SPIRAL_RunChapter (void (*chapter_init)(), void (*chapter_loop)()) {
+void SPIRAL::RunChapter (void (*chapter_init)(), void (*chapter_loop)()) {
 
     // Initialization things
 
@@ -53,12 +51,12 @@ void SPIRAL_RunChapter (void (*chapter_init)(), void (*chapter_loop)()) {
             prev_tick_time = curr_tick_time;
         }
         
-    } while (SPIRAL_main_window->update());
+    } while (SPIRAL::main_window->update());
 
 }
 
-void SPIRAL_ExitChapter () {
+void SPIRAL::ExitChapter () {
 
-    SPIRAL_main_window->gracefulExit();
+    SPIRAL::main_window->gracefulExit();
 
 }
