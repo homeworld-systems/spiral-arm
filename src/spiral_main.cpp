@@ -6,6 +6,8 @@
 # include <cstdio>
 # include <chrono>
 
+SPIRAL::Window* SPIRAL::main_window;
+
 void SPIRAL::Initialize (const char* window_name) {
 
     printf("STARSHIFT.\n");
