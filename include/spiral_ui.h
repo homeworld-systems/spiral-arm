@@ -12,17 +12,19 @@ namespace SPIRAL {
         int y;
         int width;
         int height;
+        int line_width;
         bool selected;
         const char* text;
 
         public:
         TextBox () : x(0), y(0), width(0), height(0), selected(false), text("") {}
-        TextBox (int h, int k, int w, int e, const char* t) : x(h), y(k), width(w), height(e), text(t) {}
+        TextBox (int h, int k, int w, int e, int lw, const char* t) : x(h), y(k), width(w), height(e), line_width(lw), text(t) {}
 
         int getX ();
         int getY ();
         int getWidth ();
         int getHeight ();
+        int getLineWidth ();
 
     };
 

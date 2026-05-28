@@ -94,6 +94,6 @@ void SPIRAL::Window::drawRectangle (int x, int y, int w, int e, SPIRAL::Color co
 void SPIRAL::Window::drawTextBox (SPIRAL::TextBox b) {
 
     drawRectangle(b.getX(), b.getY(), b.getWidth(), b.getHeight(), WHITE);
-    drawRectangle(b.getX() + 2, b.getY() + 2, b.getWidth() - 4, b.getHeight() - 4, BLACK);
+    drawRectangle(b.getX() + b.getLineWidth(), b.getY() + b.getLineWidth(), b.getWidth() - 2 * b.getLineWidth(), b.getHeight() - 2 * b.getLineWidth(), BLACK);
 
 }

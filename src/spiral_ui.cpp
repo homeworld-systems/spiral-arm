@@ -31,3 +31,7 @@ int SPIRAL::TextBox::getWidth () {
 int SPIRAL::TextBox::getHeight () {
     return height;
 }
+
+int SPIRAL::TextBox::getLineWidth () {
+    return line_width;
+}
