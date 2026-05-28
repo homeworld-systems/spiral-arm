@@ -1,14 +1,33 @@
-# include <cstdint>
 
 # ifndef SPIRAL_GRAPHICS_H
 
 # define SPIRAL_GRAPHICS_H
 
+# include <cstdint>
+
 namespace SPIRAL {
 
     typedef uint32_t Color;
 
-    class Image {};
+    class Image {
+
+        int width;
+        int height;
+        Color* pixels;
+
+        public:
+        Image (int w, int h, Color* p) : width(w), height(h), pixels(p) {}
+        static Image* LoadFromSource (const char* src);
+
+        int getWidth();
+        int getHeight();
+        
+        Image* crop (int x, int y, int width, int height);
+
+        friend class STAR_Window; // idk why IMAGE is FRIEND but it's prolly important [hehehehe]
+
+    };
+
     class Animation {};
 
 }
