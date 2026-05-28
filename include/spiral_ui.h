@@ -19,6 +19,11 @@ namespace SPIRAL {
         TextBox () : x(0), y(0), width(0), height(0), selected(false), text("") {}
         TextBox (int h, int k, int w, int e, const char* t) : x(h), y(k), width(w), height(e), text(t) {}
 
+        int getX ();
+        int getY ();
+        int getWidth ();
+        int getHeight ();
+
     };
 
     class Select {

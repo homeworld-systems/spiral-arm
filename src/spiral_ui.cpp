@@ -15,3 +15,19 @@ void SPIRAL::Select::set (int i) {
 int SPIRAL::Select::result () {
     return selected_index;
 }
+
+int SPIRAL::TextBox::getX () {
+    return x;
+}
+
+int SPIRAL::TextBox::getY () {
+    return y;
+}
+
+int SPIRAL::TextBox::getWidth () {
+    return width;
+}
+
+int SPIRAL::TextBox::getHeight () {
+    return height;
+}
