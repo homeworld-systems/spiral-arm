@@ -1,9 +1,8 @@
-#include "spiral_window.h"
-# include <cstdint>
-
 # ifndef SPIRAL_GRAPHICS_H
 
 # define SPIRAL_GRAPHICS_H
+
+# include <cstdint>
 
 namespace SPIRAL {
 
