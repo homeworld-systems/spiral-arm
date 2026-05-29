@@ -4,6 +4,7 @@
 
 # include <spiral_graphics.h>
 # include <spiral_ui.h>
+# include <spiral_scene.h>
 
 # include <SDL3/SDL.h>
 # include <SDL3/SDL_render.h>
@@ -40,7 +41,10 @@ namespace SPIRAL {
         // Primitives
         const void drawPixel (int x, int y, Color color);
         const void drawRectangle (int x, int y, int width, int height, Color color);
+
+        // Rendering
         const void drawTextBox (TextBox b);
+        const void drawSprite (Sprite* s);
 
         private:
 

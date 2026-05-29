@@ -15,6 +15,11 @@ namespace SPIRAL {
         public:
         Sprite (int h, int k, Image t) : x(h), y(k), texture(t) {}
 
+        Image* getTexture();
+
+        int getX();
+        int getY();
+
     };
 
     class Scene {};

@@ -1,6 +1,9 @@
 # include "spiral_window.h"
+
 # include <algorithm>
 # include <cmath>
+
+# include <spiral_scene.h>
 
 void SPIRAL::Window::create () {
 
@@ -96,6 +99,12 @@ const void SPIRAL::Window::drawTextBox (SPIRAL::TextBox b) {
 
     drawRectangle(b.getX(), b.getY(), b.getWidth(), b.getHeight(), WHITE);
     drawRectangle(b.getX() + b.getLineWidth(), b.getY() + b.getLineWidth(), b.getWidth() - 2 * b.getLineWidth(), b.getHeight() - 2 * b.getLineWidth(), BLACK);
+
+}
+
+const void SPIRAL::Window::drawSprite (SPIRAL::Sprite* s) {
+    
+    blitFast(s->getX(), s->getY(), s->getTexture());
 
 }
 
