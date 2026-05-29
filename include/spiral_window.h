@@ -39,7 +39,12 @@ namespace SPIRAL {
         // Primitives
         void drawPixel (int x, int y, Color color);
         void drawRectangle (int x, int y, int width, int height, Color color);
+
+        // UI
         void drawTextBox (TextBox b);
+
+        // Textures
+        const void blitFast (int x, int y, SPIRAL::Image* image);
 
     };
 

@@ -97,3 +97,25 @@ void SPIRAL::Window::drawTextBox (SPIRAL::TextBox b) {
     drawRectangle(b.getX() + b.getLineWidth(), b.getY() + b.getLineWidth(), b.getWidth() - 2 * b.getLineWidth(), b.getHeight() - 2 * b.getLineWidth(), BLACK);
 
 }
+
+const void SPIRAL::Window::blitFast (int x, int y, SPIRAL::Image* image) { // direct memory copy, fast
+
+    for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
+    
+        memcpy(
+
+            buffer + ((uint32_t)y + r) * width + (uint32_t)x, 
+            image->pixels + (uint32_t)r * image->width, 
+            std::clamp(
+
+                (uint32_t)(sizeof(SPIRAL::Color) * image->width),
+                (uint32_t)0,
+                (uint32_t)((width - x) * sizeof(SPIRAL::Color))
+                
+            ) // all the casts to uint32_t are to ensure parity across architectures
+
+        );
+
+    }
+
+}
