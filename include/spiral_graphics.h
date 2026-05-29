@@ -1,4 +1,3 @@
-
 # ifndef SPIRAL_GRAPHICS_H
 
 # define SPIRAL_GRAPHICS_H
@@ -14,17 +13,18 @@ namespace SPIRAL {
         int width;
         int height;
         Color* pixels;
-
+        
         public:
+
         Image (int w, int h, Color* p) : width(w), height(h), pixels(p) {}
         static Image* LoadFromSource (const char* src);
 
-        int getWidth();
-        int getHeight();
+        const int getWidth();
+        const int getHeight();
         
-        Image* crop (int x, int y, int width, int height);
+        Image* crop (int x, int y, int w, int h);
 
-        friend class STAR_Window; // idk why IMAGE is FRIEND but it's prolly important [hehehehe]
+        friend class Window; // freind is my favourite cpp keyword :3
 
     };
 

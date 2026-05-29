@@ -30,17 +30,25 @@ namespace SPIRAL {
         bool update ();
         void gracefulExit ();
 
-        // stuff
+        // Rendering
         void redrawScene ();
 
         // Drawing Functions
-        void clear (Color color);
+        const void clear (Color color);
+        const void blit (int x, int y, SPIRAL::Image* image);
 
         // Primitives
-        void drawPixel (int x, int y, Color color);
-        void drawRectangle (int x, int y, int width, int height, Color color);
-        void drawTextBox (TextBox b);
+        const void drawPixel (int x, int y, Color color);
+        const void drawRectangle (int x, int y, int width, int height, Color color);
+        const void drawTextBox (TextBox b);
 
+        private:
+
+        // PeepoScared (hall of the ancient elven blit queens)
+        const void blitDirty (int x, int y, SPIRAL::Image* image);
+        const void blitOptimised (int x, int y, SPIRAL::Image* image);
+        const void blitSlow (int x, int y, SPIRAL::Image* image);
+        const void blitFast (int x, int y, SPIRAL::Image* image);
     };
 
 }
