@@ -1,5 +1,6 @@
 # include "spiral_window.h"
 # include <algorithm>
+# include <cmath>
 
 void SPIRAL::Window::create () {
 
@@ -64,7 +65,7 @@ void SPIRAL::Window::gracefulExit () {
 
 }
 
-void SPIRAL::Window::clear (SPIRAL::Color color) {
+const void SPIRAL::Window::clear (SPIRAL::Color color) {
 
     for (int p = 0; p < width * height; p++) {
         buffer[(uint32_t)p] = color;
@@ -72,13 +73,13 @@ void SPIRAL::Window::clear (SPIRAL::Color color) {
 
 }
 
-void SPIRAL::Window::drawPixel (int x, int y, SPIRAL::Color color) {
+const void SPIRAL::Window::drawPixel (int x, int y, SPIRAL::Color color) {
 
     buffer[(uint32_t)x + (uint32_t)y * width] = color;
 
 }
 
-void SPIRAL::Window::drawRectangle (int x, int y, int w, int e, SPIRAL::Color color) {
+const void SPIRAL::Window::drawRectangle (int x, int y, int w, int e, SPIRAL::Color color) {
 
     int clamped_width = std::max(0, std::min(x + w, width) - x);
     int clamped_height = std::max(0, std::min(y + e, height) - y);
@@ -91,9 +92,112 @@ void SPIRAL::Window::drawRectangle (int x, int y, int w, int e, SPIRAL::Color co
 
 }
 
-void SPIRAL::Window::drawTextBox (SPIRAL::TextBox b) {
+const void SPIRAL::Window::drawTextBox (SPIRAL::TextBox b) {
 
     drawRectangle(b.getX(), b.getY(), b.getWidth(), b.getHeight(), WHITE);
     drawRectangle(b.getX() + b.getLineWidth(), b.getY() + b.getLineWidth(), b.getWidth() - 2 * b.getLineWidth(), b.getHeight() - 2 * b.getLineWidth(), BLACK);
+
+}
+
+const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image) { // interface for all blit modes
+
+    return blitSlow(x, y, image); // FIXME: this is just a bandaid fix i just dont wanna implement this rn
+
+}
+
+const void SPIRAL::Window::blitDirty (int x, int y, SPIRAL::Image* image) { // blit entire image at transparency of first value
+
+    uint32_t offset = 0;
+    uint32_t transparency = (image->pixels[(uint32_t)0] & 0xff000000) >> 6;
+
+    for (int i = 0; i < image->width * image->height; i++) {
+
+        offset = std::clamp((
+            (uint32_t)y + 
+            (uint32_t)std::round((i + 1) / image->width)
+        ) * width + (uint32_t)x, (uint32_t)0, (uint32_t)(width * height));
+
+        buffer[offset] = (uint32_t)((
+            (uint64_t)image->pixels[(uint32_t)i] + (uint64_t)buffer[offset]
+        ) / 2); // take average of existing pixel and new pixel
+
+    }
+
+}
+
+const void SPIRAL::Window::blitOptimised (int x, int y, SPIRAL::Image* image) { // blitSlow w/ buffer skipping optimisations
+
+    const uint32_t initial_buffer_size = 64; // n
+    const uint32_t max_depth = 8; // how many times n can be split
+    
+    int buffer_size = initial_buffer_size;
+    int current_depth = max_depth;
+    
+    uint32_t position = 0;
+
+    // TODO: FINISH THIS
+    
+}
+
+const void SPIRAL::Window::blitSlow (int x, int y, SPIRAL::Image* image) { // supports transparency, slow
+    /* this is still left in the codebase as while normally slower than blitOptimised w/ an 
+    identical result, in some cases (i.e. lots of transparency of different values) it may be faster */
+
+    uint32_t offset = 0;
+
+    for (int i = 0; i < image->width * image->height; i++) {
+
+        uint32_t transparency = (image->pixels[(uint32_t)i] & 0xff000000) >> 6;
+
+        switch (transparency) {
+
+            case 0: // for code clarity
+                break;
+            
+            case 255: // skip taking average since pixel is opaque
+                offset = std::clamp((
+                    (uint32_t)y + 
+                    (uint32_t)std::round((i + 1) / image->width)
+                ) * width + (uint32_t)x, (uint32_t)0, (uint32_t)(width * height));
+
+                buffer[offset] = image->pixels[(uint32_t)i];
+
+            default: // everything else
+                offset = std::clamp((
+
+                    (uint32_t)y + 
+                    (uint32_t)std::round((i + 1) / image->width)
+
+                ) * width + (uint32_t)x, (uint32_t)0, (uint32_t)(width * height));
+
+                buffer[offset] = (uint32_t)((
+                    (uint64_t)image->pixels[(uint32_t)i] + (uint64_t)buffer[offset]
+                ) / 2); // take average of existing pixel and new pixel
+
+        }
+
+    }
+
+}
+
+const void SPIRAL::Window::blitFast (int x, int y, SPIRAL::Image* image) { // direct memory copy, fast
+
+    for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
+    
+        memcpy(
+
+            buffer + ((uint32_t)y + r) * width + (uint32_t)x, 
+            image->pixels + (uint32_t)r * image->width, 
+            std::clamp(
+
+                (uint32_t)(sizeof(Color) * image->width),
+                (uint32_t)0,
+                (uint32_t)((width - x) * sizeof(Color))
+                
+            ) // all the casts to uint32_t are to ensure parity across architectures
+
+        );
+
+    }
 
 }
