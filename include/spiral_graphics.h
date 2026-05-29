@@ -24,7 +24,7 @@ namespace SPIRAL {
         
         Image* crop (int x, int y, int width, int height);
 
-        friend class Window; // idk why IMAGE is FRIEND but it's prolly important [hehehehe]
+        friend class STAR_Window; // idk why IMAGE is FRIEND but it's prolly important [hehehehe]
 
     };
 
