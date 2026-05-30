@@ -76,6 +76,12 @@ SPIRAL::Scene* SPIRAL::Window::getScene () {
     return scene;
 }
 
+void SPIRAL::Window::redrawScene () {
+    for (Sprite* s : getScene()->getSprites()) {
+        drawSprite(s);
+    }
+}
+
 const void SPIRAL::Window::clear (SPIRAL::Color color) {
 
     for (int p = 0; p < width * height; p++) {

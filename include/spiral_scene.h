@@ -19,8 +19,12 @@ namespace SPIRAL {
 
         Image* getTexture();
 
-        int getX();
-        int getY();
+        int getX() const;
+        int getY() const;
+
+        auto operator<=> (const Sprite& _sprite) const {
+            return _sprite.getY() <=> y; // REVERSED IS NECESSARY. RENDER IN Y-AXIS ORDER
+        }
 
     };
 
@@ -33,6 +37,7 @@ namespace SPIRAL {
 
         void addSprite(Sprite* s);
         void removeSprite(Sprite* s);
+        std::vector<Sprite*> getSprites();
 
     };
 
