@@ -149,14 +149,28 @@ const void SPIRAL::Window::blitDirty (int x, int y, SPIRAL::Image* image) { // b
 }
 
 const void SPIRAL::Window::blitOptimised (int x, int y, SPIRAL::Image* image) { // blitSlow w/ buffer skipping optimisations
-
-    const uint32_t initial_buffer_size = 64; // n
-    const uint32_t max_depth = 8; // how many times n can be split
+    /* consider an initial buffer of data k and a buffer size p. to begin with, check if SUM of [first p of k]
+     XOR [transparency bitmask] is expected value for uniform transparency. if yes, check for fully transparent
+     / fully opaque, then if neccesary perform blitDirty approach. if no, then split buffer [jth p of k] where
+     j is the current depth into halves, before then repeating SUM of [jth p of k] XOR [transparency bitmask] and
+     checking for expected value. follow same condition check as earlier, repeating this process until either all
+     checks success or the max depth (value) of j is hit. if this max value of j, being h, is it (j == h) then
+     transparency is sufficiently dense and traditional blitSlow approach is used as benefits of optimisations now
+     are outweighed by overhead */
     
-    int buffer_size = initial_buffer_size;
-    int current_depth = max_depth;
+    #define transparency_bitmask_unscaled       0x00FFFFFF  // unscaled bitmask to be repeated (ARGB8888)
+
+    #define initial_buffer_size                 32;         // n, in bytes, must be less than 32
+    #define max_depth                           8;          // h, must be less than 256
+    
+    uint8_t buffer_size = initial_buffer_size;
+    uint8_t current_depth = max_depth;
     
     uint32_t position = 0;
+
+    for (int i = 0; i < (image->width * image->height); i += buffer_size) {
+        // (((image->pixels[(uint32_t)0] & 0xff000000) >> 6) << 6)
+    }
 
     // TODO: FINISH THIS
     
@@ -164,7 +178,7 @@ const void SPIRAL::Window::blitOptimised (int x, int y, SPIRAL::Image* image) { 
 
 const void SPIRAL::Window::blitSlow (int x, int y, SPIRAL::Image* image) { // supports transparency, slow
     /* this is still left in the codebase as while normally slower than blitOptimised w/ an 
-    identical result, in some cases (i.e. lots of transparency of different values) it may be faster */
+     identical result, in some cases (i.e. lots of transparency of different values) it may be faster */
 
     uint32_t offset = 0;
 
