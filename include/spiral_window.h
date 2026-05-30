@@ -34,6 +34,13 @@ namespace SPIRAL {
         // Rendering
         void redrawScene ();
 
+        // Scene things
+
+        Scene* scene;
+
+        void createScene ();
+        Scene* getScene ();
+
         // Drawing Functions
         const void clear (Color color);
         const void blit (int x, int y, SPIRAL::Image* image);

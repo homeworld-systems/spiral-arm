@@ -11,3 +11,15 @@ int SPIRAL::Sprite::getX () {
 int SPIRAL::Sprite::getY () {
     return y;
 }
+
+void SPIRAL::Scene::addSprite (SPIRAL::Sprite* s) {
+    sprites.push_back(s);
+}
+
+void SPIRAL::Scene::removeSprite (SPIRAL::Sprite* s) {
+    for (int i = 0; i < sprites.size(); i++) {
+        if (sprites[i] == s) {
+            sprites.erase(sprites.begin() + i);
+        }
+    }
+}

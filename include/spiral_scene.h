@@ -4,6 +4,8 @@
 
 # include <spiral_graphics.h>
 
+# include <vector>
+
 namespace SPIRAL {
 
     class Sprite {
@@ -22,7 +24,17 @@ namespace SPIRAL {
 
     };
 
-    class Scene {};
+    class Scene {
+
+        std::vector<Sprite*> sprites;
+
+        public:
+        Scene () {}
+
+        void addSprite(Sprite* s);
+        void removeSprite(Sprite* s);
+
+    };
 
     class Map {};
 

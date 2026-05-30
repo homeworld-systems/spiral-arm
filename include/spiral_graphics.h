@@ -16,6 +16,7 @@ namespace SPIRAL {
         
         public:
 
+        Image () : width(0), height(0), pixels(nullptr) {}
         Image (int w, int h, Color* p) : width(w), height(h), pixels(p) {}
         static Image* LoadFromSource (const char* src);
 

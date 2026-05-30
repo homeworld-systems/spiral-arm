@@ -68,6 +68,14 @@ void SPIRAL::Window::gracefulExit () {
 
 }
 
+void SPIRAL::Window::createScene () {
+    scene = new Scene();
+}
+
+SPIRAL::Scene* SPIRAL::Window::getScene () {
+    return scene;
+}
+
 const void SPIRAL::Window::clear (SPIRAL::Color color) {
 
     for (int p = 0; p < width * height; p++) {
