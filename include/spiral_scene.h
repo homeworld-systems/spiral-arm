@@ -22,9 +22,7 @@ namespace SPIRAL {
         int getX() const;
         int getY() const;
 
-        auto operator<=> (const Sprite& _sprite) const {
-            return _sprite.getY() <=> y; // REVERSED IS NECESSARY. RENDER IN Y-AXIS ORDER
-        }
+        auto operator< (const Sprite& _sprite) const;
 
     };
 

@@ -14,6 +14,10 @@ int SPIRAL::Sprite::getY () const {
     return y;
 }
 
+bool SPIRAL::Sprite::operator< (const Sprite& _sprite) const {
+    return _sprite.getY() < y; // REVERSED IS NECESSARY. RENDER IN Y-AXIS ORDER
+}
+
 void SPIRAL::Scene::addSprite (SPIRAL::Sprite* s) {
     sprites.push_back(s);
     std::sort(sprites.begin(), sprites.end());
