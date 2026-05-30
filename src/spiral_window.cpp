@@ -2,6 +2,7 @@
 
 # include <algorithm>
 # include <cmath>
+# include <iostream>
 
 # include <spiral_scene.h>
 
@@ -73,7 +74,13 @@ void SPIRAL::Window::createScene () {
 }
 
 SPIRAL::Scene* SPIRAL::Window::getScene () {
-    return scene;
+    if (scene != nullptr) {
+        return scene;
+    }
+    else {
+        std::cerr << "[SPIRAL ARM] Scene has not been created.\n";
+        std::exit(EXIT_FAILURE);
+    }
 }
 
 void SPIRAL::Window::redrawScene () {

@@ -22,7 +22,7 @@ namespace SPIRAL {
         int getX() const;
         int getY() const;
 
-        auto operator< (const Sprite& _sprite) const;
+        bool operator< (const Sprite& _sprite) const;
 
     };
 
