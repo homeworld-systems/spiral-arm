@@ -33,9 +33,12 @@ namespace SPIRAL {
         public:
         Scene () {}
 
-        void addSprite(Sprite* s);
+        SPIRAL::Sprite* createSprite (int x, int y, SPIRAL::Image* texture);
         void removeSprite(Sprite* s);
         std::vector<Sprite*> getSprites();
+
+        private:
+        void addSprite(Sprite* s);
 
     };
 
