@@ -46,11 +46,11 @@ find_package(SDL3_image REQUIRED)
 add_library(spiral-arm STATIC
     src/spiral_camera.cpp
     src/spiral_graphics.cpp
+    src/spiral_input.cpp
+    src/spiral_main.cpp
     src/spiral_scene.cpp
     src/spiral_ui.cpp
     src/spiral_window.cpp
-    src/spiral_main.cpp
-    src/spiral_input.cpp
 )
 
 # Library linking
