@@ -30,7 +30,7 @@ void SPIRAL::MainMenu (void (*main_menu_init)(), void (*main_menu_loop)()) {
 
 }
 
-void SPIRAL::RunChapter (void (*chapter_init)(), void (*chapter_tick)()) {
+void SPIRAL::RunChapter (void (*chapter_init)(), void (*chapter_frame)(), void (*chapter_tick)()) {
 
     // Initialization things
 
@@ -47,6 +47,8 @@ void SPIRAL::RunChapter (void (*chapter_init)(), void (*chapter_tick)()) {
         curr_tick_time = delta_clock.now();
 
         std::chrono::milliseconds delta_time = std::chrono::duration_cast<std::chrono::milliseconds>(curr_tick_time - prev_tick_time);
+
+        chapter_frame();
 
         if (delta_time.count() >= tick_length) {
             chapter_tick();
