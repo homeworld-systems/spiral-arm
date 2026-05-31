@@ -37,7 +37,7 @@ void SPIRAL::RunChapter (void (*chapter_init)(), void (*chapter_frame)(), void (
     std::chrono::steady_clock delta_clock;
     std::chrono::steady_clock::time_point prev_tick_time = delta_clock.now(); 
     std::chrono::steady_clock::time_point curr_tick_time;
-    const long long tick_length = 50;
+    const long long tick_length = 32;
 
     SPIRAL::main_window->createScene();
     chapter_init();
