@@ -14,6 +14,27 @@ int SPIRAL::Sprite::getY () const {
     return y;
 }
 
+void SPIRAL::Sprite::setX (int h) {
+    x = h;
+}
+
+void SPIRAL::Sprite::setY (int k) {
+    y = k;
+}
+
+void SPIRAL::Sprite::setPosition (int h, int k) {
+    x = h;
+    y = k;
+}
+
+void SPIRAL::Sprite::changeX(int dx) {
+    x += dx;
+}
+
+void SPIRAL::Sprite::changeY(int dy) {
+    y += dy;
+}
+
 bool SPIRAL::Sprite::operator< (const Sprite& _sprite) const {
     return _sprite.getY() < y; // REVERSED IS NECESSARY. RENDER IN Y-AXIS ORDER
 }

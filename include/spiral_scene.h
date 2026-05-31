@@ -22,6 +22,11 @@ namespace SPIRAL {
 
         int getX() const;
         int getY() const;
+        void setX(int h);
+        void setY(int k);
+        void setPosition(int h, int k);
+        void changeX(int dx);
+        void changeY(int dy);
 
         bool operator< (const Sprite& _sprite) const;
 
