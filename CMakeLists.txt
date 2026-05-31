@@ -51,6 +51,7 @@ add_library(spiral-arm STATIC
     src/spiral_scene.cpp
     src/spiral_ui.cpp
     src/spiral_window.cpp
+    src/spiral_math.cpp
 )
 
 # Library linking

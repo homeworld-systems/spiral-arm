@@ -5,6 +5,8 @@
 # include <iostream>
 
 # include <spiral_scene.h>
+# include <constants.h>
+# include <spiral_math.h>
 
 void SPIRAL::Window::create () {
 
@@ -85,7 +87,11 @@ SPIRAL::Scene* SPIRAL::Window::getScene () {
 
 void SPIRAL::Window::redrawScene () {
     for (Sprite* s : getScene()->getSprites()) {
-        drawSprite(s);
+        if (SPIRAL::AABBCollision(
+            {s->getX(), s->getY(), s->getTexture()->width, s->getTexture()->height},
+            {0, 0, FRAME_WIDTH, FRAME_HEIGHT})) { // CHANGE THESE TO BE CAMERA BASED LATER
+            drawSprite(s);
+        }
     }
 }
 
