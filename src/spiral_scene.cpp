@@ -25,6 +25,16 @@ SPIRAL::Sprite* SPIRAL::Scene::createSprite (int x, int y, SPIRAL::Image* textur
     return spr;
 }
 
+void SPIRAL::Scene::tick () {
+    for (SPIRAL::Keybind keybind : keybinds) {
+        for (Scancode key : SPIRAL::GetKeysDown()) {
+            if (keybind.key == key) {
+                keybind.action();
+            }
+        }
+    }
+}
+
 void SPIRAL::Scene::addSprite (SPIRAL::Sprite* s) {
     sprites.push_back(s);
     std::sort(sprites.begin(), sprites.end());

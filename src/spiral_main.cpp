@@ -50,6 +50,7 @@ void SPIRAL::RunChapter (void (*chapter_init)(), void (*chapter_loop)()) {
 
         if (delta_time.count() >= tick_length) {
             // tick();
+            SPIRAL::main_window->getScene()->tick();
             prev_tick_time = curr_tick_time;
         }
         
