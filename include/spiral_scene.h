@@ -32,26 +32,17 @@ namespace SPIRAL {
 
     };
 
-    struct Keybind {
-        Scancode key;
-        void* (*action)();
-    };
-
     class Scene {
 
         std::vector<Sprite*> sprites;
-        std::vector<Keybind> keybinds;
 
         public:
         Scene () {}
-        void tick ();
 
         SPIRAL::Sprite* createSprite (int x, int y, SPIRAL::Image* texture);
         void removeSprite(Sprite* s);
         std::vector<Sprite*> getSprites();
-
-        void addKeybind (Keybind keybind);
-
+        
         private:
         void addSprite(Sprite* s);
 
