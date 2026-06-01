@@ -1,12 +1,12 @@
 # include "spiral_window.h"
+#include "spiral_graphics.h"
 
 # include <algorithm>
-# include <cmath>
 # include <iostream>
 
 # include <spiral_scene.h>
-# include <constants.h>
 # include <spiral_math.h>
+# include <constants.h>
 
 void SPIRAL::Window::create () {
 
@@ -131,122 +131,65 @@ const void SPIRAL::Window::drawTextBox (SPIRAL::TextBox b) {
 
 const void SPIRAL::Window::drawSprite (SPIRAL::Sprite* s) {
     
-    blitFast(s->getX(), s->getY(), s->getTexture());
+    blit(s->getX(), s->getY(), s->getTexture());
 
 }
 
-const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image) { // interface for all blit modes
+const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image, bool transparency) { // interface for all blit modes
 
-    return blitSlow(x, y, image); // FIXME: this is just a bandaid fix i just dont wanna implement this rn
+    if (transparency) { // PARTIAL TRANSPARENCY (REQUIRES TRANSPARENCY VALUES)
 
-}
+        for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
 
-const void SPIRAL::Window::blitDirty (int x, int y, SPIRAL::Image* image) { // blit entire image at transparency of first value
+            uint32_t* from = image->pixels + (uint32_t)r * image->width;
+            uint32_t* to = buffer + ((uint32_t)y + r) * width + (uint32_t)x;
 
-    uint32_t offset = 0;
-    uint32_t transparency = (image->pixels[(uint32_t)0] & 0xff000000) >> 6;
+            uint32_t length = std::clamp(
 
-    for (int i = 0; i < image->width * image->height; i++) {
+                (uint32_t)(sizeof(Color) * image->width),
+                (uint32_t)0, (uint32_t)((width - x) * sizeof(Color))
 
-        offset = std::clamp((
-            (uint32_t)y + 
-            (uint32_t)std::round((i + 1) / image->width)
-        ) * width + (uint32_t)x, (uint32_t)0, (uint32_t)(width * height));
+            );
 
-        buffer[offset] = (uint32_t)((
-            (uint64_t)image->pixels[(uint32_t)i] + (uint64_t)buffer[offset]
-        ) / 2); // take average of existing pixel and new pixel
+            uint32_t offset = 0;
 
-    }
+            while (offset < length) {
 
-}
+                if ((from[offset] & 0xFF000000) == 0xFF000000) {
 
-const void SPIRAL::Window::blitOptimised (int x, int y, SPIRAL::Image* image) { // blitSlow w/ buffer skipping optimisations
-    /* consider an initial buffer of data k and a buffer size p. to begin with, check if SUM of [first p of k]
-     XOR [transparency bitmask] is expected value for uniform transparency. if yes, check for fully transparent
-     / fully opaque, then if neccesary perform blitDirty approach. if no, then split buffer [jth p of k] where
-     j is the current depth into halves, before then repeating SUM of [jth p of k] XOR [transparency bitmask] and
-     checking for expected value. follow same condition check as earlier, repeating this process until either all
-     checks success or the max depth (value) of j is hit. if this max value of j, being h, is it (j == h) then
-     transparency is sufficiently dense and traditional blitSlow approach is used as benefits of optimisations now
-     are outweighed by overhead */
-    
-    #define transparency_bitmask_unscaled       0x00FFFFFF  // unscaled bitmask to be repeated (ARGB8888)
+                    to[offset] = from[offset];
 
-    #define initial_buffer_size                 32;         // n, in bytes, must be less than 32
-    #define max_depth                           8;          // h, must be less than 256
-    
-    uint8_t buffer_size = initial_buffer_size;
-    uint8_t current_depth = max_depth;
-    
-    uint32_t position = 0;
+                }
+                
+                offset += uint32_t(sizeof(Color));
 
-    for (int i = 0; i < (image->width * image->height); i += buffer_size) {
-        // (((image->pixels[(uint32_t)0] & 0xff000000) >> 6) << 6)
-    }
+            } 
 
-    // TODO: FINISH THIS
-    
-}
-
-const void SPIRAL::Window::blitSlow (int x, int y, SPIRAL::Image* image) { // supports transparency, slow
-    /* this is still left in the codebase as while normally slower than blitOptimised w/ an 
-     identical result, in some cases (i.e. lots of transparency of different values) it may be faster */
-
-    uint32_t offset = 0;
-
-    for (int i = 0; i < image->width * image->height; i++) {
-
-        uint32_t transparency = (image->pixels[(uint32_t)i] & 0xff000000) >> 6;
-
-        switch (transparency) {
-
-            case 0: // for code clarity
-                break;
-            
-            case 255: // skip taking average since pixel is opaque
-                offset = std::clamp((
-                    (uint32_t)y + 
-                    (uint32_t)std::round((i + 1) / image->width)
-                ) * width + (uint32_t)x, (uint32_t)0, (uint32_t)(width * height));
-
-                buffer[offset] = image->pixels[(uint32_t)i];
-
-            default: // everything else
-                offset = std::clamp((
-
-                    (uint32_t)y + 
-                    (uint32_t)std::round((i + 1) / image->width)
-
-                ) * width + (uint32_t)x, (uint32_t)0, (uint32_t)(width * height));
-
-                buffer[offset] = (uint32_t)((
-                    (uint64_t)image->pixels[(uint32_t)i] + (uint64_t)buffer[offset]
-                ) / 2); // take average of existing pixel and new pixel
+            offset = 1;
 
         }
 
-    }
+    } else { // NO TRANSPARENCY (TRANSPARENT VALUES WILL BE IGNORED) (FASTER)
 
-}
+        for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
 
-const void SPIRAL::Window::blitFast (int x, int y, SPIRAL::Image* image) { // direct memory copy, fast
+            memcpy(
 
-    for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
-    
-        memcpy(
+                buffer + ((uint32_t)y + r) * width + (uint32_t)x,
+                image->pixels + (uint32_t)r * image->width,
+                std::clamp(
 
-            buffer + ((uint32_t)y + r) * width + (uint32_t)x, 
-            image->pixels + (uint32_t)r * image->width, 
-            std::clamp(
+                    (uint32_t)(sizeof(Color) * image->width),
+                    (uint32_t)0,
+                    (uint32_t)((width - x) * sizeof(Color))
+                    
+                ) // all the casts to uint32_t are to ensure parity across architectures
 
-                (uint32_t)(sizeof(Color) * image->width),
-                (uint32_t)0,
-                (uint32_t)((width - x) * sizeof(Color))
-                
-            ) // all the casts to uint32_t are to ensure parity across architectures
+            );
 
-        );
+        }
+
+        return;
 
     }
 
