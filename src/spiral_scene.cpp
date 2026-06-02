@@ -1,7 +1,7 @@
 # include "spiral_scene.h"
 
 # include <algorithm>
-# include <iostream>
+# include <cstring>
 
 SPIRAL::Image* SPIRAL::Sprite::getTexture () {
     return &texture;
