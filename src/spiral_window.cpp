@@ -137,6 +137,8 @@ const void SPIRAL::Window::drawSprite (SPIRAL::Sprite* s) {
 
 const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image, bool transparency) { // interface for all blit modes
 
+    if ((height - y) < 0) { return; }
+
     if (transparency) { // PARTIAL TRANSPARENCY (REQUIRES TRANSPARENCY VALUES)
 
         for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
@@ -144,7 +146,7 @@ const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image, bool transp
             uint32_t* from = image->pixels + (uint32_t)r * image->width;
             uint32_t* to = buffer + ((uint32_t)y + r) * width + (uint32_t)x;
 
-            if ((uint32_t)((width - x) * sizeof(Color)) < 0) {
+            if ((uint32_t)((width - x) * sizeof(Color)) <= 0) {
 
                 continue;
 
@@ -179,7 +181,7 @@ const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image, bool transp
 
         for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
 
-            if ((uint32_t)((width - x) * sizeof(Color)) < 0) {
+            if ((uint32_t)((width - x) * sizeof(Color)) <= 0) {
 
                 continue;
 
