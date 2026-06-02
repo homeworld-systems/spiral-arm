@@ -10,7 +10,7 @@ namespace SPIRAL {
 
     void Initialize (const char* window_name);
 
-    void MainMenu (void (*main_menu_init)(), void (*main_menu_loop)());
+    int MainMenu (void (*main_menu_init)(), int (*main_menu_loop)());
 
     void RunChapter (void (*chapter_init)(), void (*chapter_frame)(), void (*chapter_tick)());
 

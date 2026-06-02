@@ -18,15 +18,22 @@ void SPIRAL::Initialize (const char* window_name) {
 
 }
 
-void SPIRAL::MainMenu (void (*main_menu_init)(), void (*main_menu_loop)()) {
+int SPIRAL::MainMenu (void (*main_menu_init)(), int (*main_menu_loop)()) {
 
     main_menu_init();
+
+    int exit = 0;
     
     do {
         
-        main_menu_loop();
+        exit = main_menu_loop();
+        if (exit != 0) {
+            break;
+        }
         
     } while (SPIRAL::main_window->update());
+
+    return exit;
 
 }
 
