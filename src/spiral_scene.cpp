@@ -1,6 +1,7 @@
 # include "spiral_scene.h"
 
 # include <algorithm>
+# include <iostream>
 
 SPIRAL::Image* SPIRAL::Sprite::getTexture () {
     return &texture;
@@ -58,6 +59,13 @@ void SPIRAL::Scene::removeSprite (SPIRAL::Sprite* s) {
         }
     }
     std::sort(sprites.begin(), sprites.end());
+}
+
+SPIRAL::Area* SPIRAL::Scene::createArea (uint8_t width, uint8_t height, SPIRAL::Tile* tiles) {
+    area = (SPIRAL::Area*)malloc(sizeof(SPIRAL::Area));
+    area->tiles = (SPIRAL::Tile*)malloc(width * height * sizeof(SPIRAL::Tile));
+    memcpy(area->tiles, tiles, width * height * sizeof(SPIRAL::Tile));
+    return area;
 }
 
 std::vector<SPIRAL::Sprite*> SPIRAL::Scene::getSprites() {

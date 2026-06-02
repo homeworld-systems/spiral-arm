@@ -4,6 +4,7 @@
 
 # include <spiral_graphics.h>
 # include <spiral_input.h>
+# include <spiral_area.h>
 
 # include <vector>
 
@@ -34,12 +35,14 @@ namespace SPIRAL {
 
     class Scene {
 
+        Area* area;
         std::vector<Sprite*> sprites;
 
         public:
         Scene () {}
 
-        SPIRAL::Sprite* createSprite (int x, int y, SPIRAL::Image* texture);
+        Sprite* createSprite (int x, int y, Image* texture);
+        Area* createArea (uint8_t width, uint8_t height, Tile* tiles);
         void removeSprite(Sprite* s);
         std::vector<Sprite*> getSprites();
         
