@@ -144,6 +144,12 @@ const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image, bool transp
             uint32_t* from = image->pixels + (uint32_t)r * image->width;
             uint32_t* to = buffer + ((uint32_t)y + r) * width + (uint32_t)x;
 
+            if ((uint32_t)((width - x) * sizeof(Color)) < 0) {
+
+                continue;
+
+            }
+
             uint32_t length = std::clamp(
 
                 (uint32_t)(sizeof(Color) * image->width),
@@ -161,9 +167,9 @@ const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image, bool transp
 
                 }
                 
-                offset += uint32_t(sizeof(Color));
+                offset += sizeof(Color);
 
-            } 
+            }
 
             offset = 1;
 
@@ -173,6 +179,12 @@ const void SPIRAL::Window::blit (int x, int y, SPIRAL::Image* image, bool transp
 
         for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
 
+            if ((uint32_t)((width - x) * sizeof(Color)) < 0) {
+
+                continue;
+
+            }
+            
             memcpy(
 
                 buffer + ((uint32_t)y + r) * width + (uint32_t)x,
