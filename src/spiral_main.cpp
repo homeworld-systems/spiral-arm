@@ -66,7 +66,7 @@ void SPIRAL::RunChapter (void (*chapter_init)(), void (*chapter_frame)(), void (
 
 }
 
-void SPIRAL::ExitChapter () {
+void SPIRAL::Exit () {
 
     SPIRAL::main_window->gracefulExit();
 

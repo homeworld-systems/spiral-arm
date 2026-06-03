@@ -14,7 +14,7 @@ namespace SPIRAL {
 
     void RunChapter (void (*chapter_init)(), void (*chapter_frame)(), void (*chapter_tick)());
 
-    void ExitChapter ();
+    void Exit ();
 
 }
 
