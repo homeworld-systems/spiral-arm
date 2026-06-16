@@ -68,6 +68,18 @@ SPIRAL::Area* SPIRAL::Scene::createArea (uint8_t width, uint8_t height, SPIRAL::
     return area;
 }
 
+SPIRAL::Area* SPIRAL::Scene::getArea () {
+    return area;
+}
+
 std::vector<SPIRAL::Sprite*> SPIRAL::Scene::getSprites() {
     return sprites;
+}
+
+void SPIRAL::Scene::setTileset (SPIRAL::Tileset* t) {
+    tileset = t;
+}
+
+SPIRAL::Tileset* SPIRAL::Scene::getTileset () {
+    return tileset;
 }

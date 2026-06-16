@@ -86,13 +86,37 @@ SPIRAL::Scene* SPIRAL::Window::getScene () {
 }
 
 void SPIRAL::Window::redrawScene () {
-    for (Sprite* s : getScene()->getSprites()) {
+
+    std::vector<Sprite*> sprites = scene->getSprites();
+
+    for (Sprite* s : sprites) {
+
+        int x = s->getX();
+        int y = s->getY();
+        int width = s->getTexture()->width;
+        int height = s->getTexture()->height;
+
         if (SPIRAL::AABBCollision(
-            {s->getX(), s->getY(), s->getTexture()->width, s->getTexture()->height},
+            {x, y, width, height},
             {0, 0, FRAME_WIDTH, FRAME_HEIGHT})) { // CHANGE THESE TO BE CAMERA BASED LATER
             drawSprite(s);
         }
+        
     }
+
+    Area* area = scene->getArea();
+    Tileset* tileset = scene->getTileset();
+    uint8_t height = area->height;
+    uint8_t width = area->width;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            uint8_t tile_type = area->tiles[y * width + x].type;
+            blit(x * 20, y * 20, tileset->tile_textures[tile_type], false);
+        }
+    }
+
+
 }
 
 const void SPIRAL::Window::clear (SPIRAL::Color color) {

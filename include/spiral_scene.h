@@ -36,18 +36,21 @@ namespace SPIRAL {
     class Scene {
 
         Area* area;
+        Tileset* tileset;
         std::vector<Sprite*> sprites;
 
         public:
         Scene () {}
 
         Sprite* createSprite (int x, int y, Image* texture);
-        Area* createArea (uint8_t width, uint8_t height, Tile* tiles);
-        void removeSprite(Sprite* s);
-        std::vector<Sprite*> getSprites();
-        
-        private:
         void addSprite(Sprite* s);
+        void removeSprite (Sprite* s);
+        Area* createArea (uint8_t width, uint8_t height, Tile* tiles);
+        void setTileset (Tileset* t);
+        
+        std::vector<Sprite*> getSprites ();
+        Area* getArea ();
+        Tileset* getTileset ();
 
     };
 
