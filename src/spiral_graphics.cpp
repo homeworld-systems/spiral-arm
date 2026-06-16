@@ -40,3 +40,11 @@ SPIRAL::Image* SPIRAL::Image::LoadFromSource (const char* src) {
     return new SPIRAL::Image(width, height, pixels);
 
 }
+
+SPIRAL::Image* SPIRAL::Image::SolidColor (SPIRAL::Color c, int width, int height) {
+    Color* pixels = new Color[width * height];
+    for (int i = 0; i < width * height; i++) {
+        pixels[i] = c;
+    }
+    return new Image(width, height, pixels);
+}

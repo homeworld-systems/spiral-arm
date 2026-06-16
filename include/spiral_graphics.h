@@ -19,6 +19,7 @@ namespace SPIRAL {
         Image () : width(0), height(0), pixels(nullptr) {}
         Image (int w, int h, Color* p) : width(w), height(h), pixels(p) {}
         static Image* LoadFromSource (const char* src);
+        static Image* SolidColor (Color c, int width, int height);
 
         const int getWidth();
         const int getHeight();
