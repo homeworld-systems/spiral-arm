@@ -62,7 +62,9 @@ void SPIRAL::Scene::removeSprite (SPIRAL::Sprite* s) {
 }
 
 SPIRAL::Area* SPIRAL::Scene::createArea (uint8_t width, uint8_t height, SPIRAL::Tile* tiles) {
-    area = (SPIRAL::Area*)malloc(sizeof(SPIRAL::Area));
+    area = new SPIRAL::Area();
+    area->width = width;
+    area->height = height;
     area->tiles = (SPIRAL::Tile*)malloc(width * height * sizeof(SPIRAL::Tile));
     memcpy(area->tiles, tiles, width * height * sizeof(SPIRAL::Tile));
     return area;
