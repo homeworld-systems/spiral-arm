@@ -87,6 +87,18 @@ SPIRAL::Scene* SPIRAL::Window::getScene () {
 
 void SPIRAL::Window::redrawScene () {
 
+    Area* area = scene->getArea();
+    Tileset* tileset = scene->getTileset();
+    uint8_t height = area->height;
+    uint8_t width = area->width;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            uint8_t tile_type = area->tiles[y * width + x].type;
+            blit(x * 20, y * 20, tileset->tiles[tile_type], false);
+        }
+    }
+
     std::vector<Sprite*> sprites = scene->getSprites();
 
     for (Sprite* s : sprites) {
@@ -103,20 +115,6 @@ void SPIRAL::Window::redrawScene () {
         }
 
     }
-
-    Area* area = scene->getArea();
-    Tileset* tileset = scene->getTileset();
-    uint8_t height = area->height;
-    uint8_t width = area->width;
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            SDL_Log("[DEBUG] Rendering tile at (%u, %u)\n", x, y);
-            uint8_t tile_type = area->tiles[y * width + x].type;
-            blit(x * 20, y * 20, tileset->tiles[tile_type], false);
-        }
-    }
-
 
 }
 
