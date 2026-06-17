@@ -110,8 +110,8 @@ void SPIRAL::Window::redrawScene () {
     uint8_t width = area->width;
 
     for (int y = 0; y < height; y++) {
-        std::cout << "Drawing tile at y = " << y << "\n";
         for (int x = 0; x < width; x++) {
+            SDL_Log("[DEBUG] Rendering tile at (%u, %u)\n", x, y);
             uint8_t tile_type = area->tiles[y * width + x].type;
             blit(x * 20, y * 20, tileset->tiles[tile_type], false);
         }
