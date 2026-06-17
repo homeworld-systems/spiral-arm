@@ -112,7 +112,7 @@ void SPIRAL::Window::redrawScene () {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             uint8_t tile_type = area->tiles[y * width + x].type;
-            blit(x * 20, y * 20, (*tileset)[256], false);
+            blit(x * 20, y * 20, tileset->tiles[tile_type], false);
         }
     }
 

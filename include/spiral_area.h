@@ -10,7 +10,9 @@ namespace SPIRAL {
         bool solid;
     };
 
-    typedef SPIRAL::Image* Tileset[256];
+    struct Tileset {
+        Image* tiles[256];
+    };
 
     struct Area {
         uint8_t width;
