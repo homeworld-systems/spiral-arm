@@ -101,7 +101,7 @@ void SPIRAL::Window::redrawScene () {
             {0, 0, FRAME_WIDTH, FRAME_HEIGHT})) { // CHANGE THESE TO BE CAMERA BASED LATER
             drawSprite(s);
         }
-        
+
     }
 
     Area* area = scene->getArea();
@@ -112,7 +112,7 @@ void SPIRAL::Window::redrawScene () {
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             uint8_t tile_type = area->tiles[y * width + x].type;
-            blit(x * 20, y * 20, tileset->tile_textures[tile_type], false);
+            blit(x * 20, y * 20, (*tileset)[256], false);
         }
     }
 
