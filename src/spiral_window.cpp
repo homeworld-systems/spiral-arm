@@ -87,6 +87,8 @@ SPIRAL::Scene* SPIRAL::Window::getScene () {
 
 void SPIRAL::Window::redrawScene () {
 
+    clear(WHITE);
+
     Area* area = scene->getArea();
     Tileset* tileset = scene->getTileset();
     uint8_t height = area->height;
