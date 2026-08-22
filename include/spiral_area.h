@@ -10,6 +10,8 @@ namespace SPIRAL {
         bool solid;
     };
 
+    Tile* LoadTilemapFromSource (const char* src, int* size);
+
     struct Tileset {
         Image* tiles[256];
     };
