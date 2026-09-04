@@ -40,16 +40,24 @@ namespace spiral {
 
         bool update ();
         void gracefulExit ();
-        const void clear (spiral::Color color);
-        const void drawPixel (int x, int y, spiral::Color color);
-        const void drawRectangle (int x, int y, int w, int e, spiral::Color color);
+
+        void (*chapter_init)(spiral::Window*);
+        void (*chapter_frame)(spiral::Window*);
+        void (*chapter_tick)(spiral::Window*);
 
         private:
         Window (int w, int h, int s, const char* n) : width(w), height(h), scale(s), name(n) {}
 
         friend void InitWindow (spiral::Window* &window, int width, int height, int scale, const char* name);
+        friend void Clear (spiral::Color color, spiral::Window* window);
+        friend void DrawPixel (int x, int y, spiral::Color color, spiral::Window* window);
+        friend void DrawRectangle (int x, int y, int w, int h, spiral::Color color, spiral::Window* window);
 
     };
+
+    void Clear (spiral::Color color, spiral::Window* window);
+    void DrawPixel (int x, int y, spiral::Color color, spiral::Window* window);
+    void DrawRectangle (int x, int y, int w, int h, spiral::Color color, spiral::Window* window);
 
     void InitCamera (spiral::Camera* &camera, int w, int h, spiral::Window* window);
 
@@ -68,7 +76,8 @@ namespace spiral {
 
     };
 
-    void StartChapter (void (*chapter_init)(spiral::Window*), void (*chapter_frame)(spiral::Window*), void (*chapter_tick)(spiral::Window*), spiral::Window* window);
+    void Start (spiral::Window* window);
+    void SwitchChapter (void (*chapter_init)(spiral::Window*), void (*chapter_frame)(spiral::Window*), void (*chapter_tick)(spiral::Window*), spiral::Window* window);
 
 }
 

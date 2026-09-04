@@ -21,7 +21,7 @@ void spiral::InitWindow (spiral::Window* &window, int width, int height, int sca
     // Set to nearest-neighbor scaling
     SDL_SetTextureScaleMode(window->__texture, SDL_ScaleMode::SDL_SCALEMODE_NEAREST);
 
-    window->clear(spiral::COLOR_WHITE);
+    spiral::Clear(spiral::COLOR_WHITE, window);
 
 }
 
@@ -76,28 +76,28 @@ void spiral::Window::gracefulExit () {
 
 }
 
-const void spiral::Window::clear (spiral::Color color) {
+void spiral::Clear (spiral::Color color, spiral::Window* window) {
 
-    for (int p = 0; p < width * height; p++) {
-        buffer[(uint32_t)p] = color;
+    for (int p = 0; p < window->width * window->height; p++) {
+        window->buffer[(uint32_t)p] = color;
     }
 
 }
 
-const void spiral::Window::drawPixel (int x, int y, spiral::Color color) {
+void spiral::DrawPixel (int x, int y, spiral::Color color, spiral::Window* window) {
 
-    buffer[(uint32_t)x + (uint32_t)y * width] = color;
+    window->buffer[(uint32_t)x + (uint32_t)y * window->width] = color;
 
 }
 
-const void spiral::Window::drawRectangle (int x, int y, int w, int e, spiral::Color color) {
+void spiral::DrawRectangle (int x, int y, int w, int e, spiral::Color color, spiral::Window* window) {
 
-    int clamped_width = std::max(0, std::min(x + w, width) - x);
-    int clamped_height = std::max(0, std::min(y + e, height) - y);
+    int clamped_width = std::max(0, std::min(x + w, window->width) - x);
+    int clamped_height = std::max(0, std::min(y + e, window->height) - y);
 
     for (int k = y; k < y + clamped_height; k++) {
         for (int h = x; h < x + clamped_width; h++) {
-            buffer[(uint32_t)h + (uint32_t)k * width] = color;
+            window->buffer[(uint32_t)h + (uint32_t)k * window->width] = color;
         }
     }
 
@@ -181,7 +181,7 @@ void spiral::InitCamera (spiral::Camera* &camera, int w, int h, spiral::Window* 
 
 }
 
-void spiral::StartChapter (void (*chapter_init)(spiral::Window*), void (*chapter_frame)(spiral::Window*), void (*chapter_tick)(spiral::Window*), spiral::Window* window) {
+void spiral::Start (spiral::Window* window) {
     
     // Initialization things
 
@@ -190,22 +190,31 @@ void spiral::StartChapter (void (*chapter_init)(spiral::Window*), void (*chapter
     std::chrono::steady_clock::time_point curr_tick_time;
     const long long tick_length = 32;
 
-    chapter_init(window);
-    
     do {
         
         curr_tick_time = delta_clock.now();
 
         std::chrono::milliseconds delta_time = std::chrono::duration_cast<std::chrono::milliseconds>(curr_tick_time - prev_tick_time);
 
-        chapter_frame(window);
+        window->chapter_frame(window);
 
         if (delta_time.count() >= tick_length) {
-            chapter_tick(window);
+            window->chapter_tick(window);
             prev_tick_time = curr_tick_time;
         }
         
     } while (window->update());
+    
+}
 
+void spiral::SwitchChapter (void (*chapter_init)(spiral::Window*), void (*chapter_frame)(spiral::Window*), void (*chapter_tick)(spiral::Window*), spiral::Window* window) {
+
+    spiral::Clear(spiral::COLOR_WHITE, window);
+
+    window->chapter_init = chapter_init;
+    window->chapter_frame = chapter_frame;
+    window->chapter_tick = chapter_tick;
+
+    window->chapter_init(window);
 
 }

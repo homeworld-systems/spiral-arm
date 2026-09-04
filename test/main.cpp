@@ -1,5 +1,6 @@
 # include <spiral_main.h>
 # include <spiral_scene.h>
+# include <spiral_graphics.h>
 
 void chapter1_scene_test_init (spiral::Window* window) {
 
@@ -19,6 +20,8 @@ void chapter1_init (spiral::Window* window) {
     spiral::CreateSprite(chara, 0, 0);
     spiral::AddPlayer(chara, window);
 
+    spiral::Clear(spiral::COLOR_MAGENTA, window);
+
 }
 
 void chapter1_frame (spiral::Window* window) {
@@ -33,7 +36,8 @@ int main () {
 
     spiral::Window* window;
     spiral::InitWindow(window, 320, 240, 6, "SPIRAL ARM TEST");
-    spiral::StartChapter(chapter1_init, chapter1_frame, chapter1_tick, window);
+    spiral::SwitchChapter(chapter1_init, chapter1_frame, chapter1_tick, window);
+    spiral::Start(window);
 
     return 0;
 
