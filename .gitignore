@@ -44,6 +44,12 @@ build/
 Build/
 build-*/
 
+# Executable destination
+dest/
+
+# Vendor files
+vendor/
+
 # CMake generated files
 CMakeFiles/
 CMakeCache.txt
