@@ -17,8 +17,7 @@ namespace spiral {
     class Scene;
     class Sprite;
     enum class Event;
-    void AddTrigger (spiral::Event e, void (*callback)(void*, spiral::Window*), spiral::Window* window);
-
+    
     // End forward declarations
 
     typedef uint32_t Color;
@@ -55,8 +54,7 @@ namespace spiral {
         private:
         Window (int w, int h, int s, const char* n) : width(w), height(h), scale(s), name(n) {}
 
-        friend void spiral::AddTrigger (spiral::Event e, void (*callback)(void*, spiral::Window*), spiral::Window* window);
-
+        friend void AddTrigger (spiral::Event e, void (*callback)(void*, spiral::Window*), spiral::Window* window);
         friend void InitWindow (spiral::Window* &window, int width, int height, int scale, const char* name);
         friend void Clear (spiral::Color color, spiral::Window* window);
         friend void DrawPixel (int x, int y, spiral::Color color, spiral::Window* window);
