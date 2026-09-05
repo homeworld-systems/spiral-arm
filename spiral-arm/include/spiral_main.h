@@ -17,7 +17,8 @@ namespace spiral {
     class Scene;
     class Sprite;
     enum class Event;
-    
+    struct EventTrigger;
+
     // End forward declarations
 
     typedef uint32_t Color;
@@ -37,7 +38,8 @@ namespace spiral {
         SDL_Renderer* __renderer;
         SDL_Texture* __texture;
 
-        std::unordered_multimap<spiral::Event, void(*)(void*, spiral::Window*)> event_triggers;
+        std::vector<spiral::EventTrigger*> event_triggers;
+        std::unordered_multimap<spiral::Event, void*> event_queue;
 
         public:
         spiral::Scene* scene;
@@ -45,6 +47,7 @@ namespace spiral {
         std::vector<spiral::Sprite*> players;
 
         bool update ();
+        void tick ();
         void gracefulExit ();
 
         void (*chapter_init)(spiral::Window*);

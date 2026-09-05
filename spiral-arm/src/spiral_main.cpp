@@ -40,11 +40,7 @@ bool spiral::Window::update () {
 
         if (e.type == SDL_EVENT_KEY_DOWN) {
 
-            for (const auto& [event, callback] : event_triggers) {
-                if (event == spiral::Event::EVENT_KEYDOWN) {
-                    callback(&(e.key.key), this);
-                }
-            }
+            event_queue.insert({spiral::Event::EVENT_KEYDOWN, &(e.key.key)});
 
         }
 
@@ -73,6 +69,18 @@ bool spiral::Window::update () {
     SDL_RenderPresent(__renderer);
     
     return true;
+
+}
+
+void spiral::Window::tick () {
+
+    std::vector<int> called_events = std::vector<int>();
+
+    for (int i = 0; i < event_triggers.size(); i++) {
+        for (const auto& [event, data] : event_queue) {
+            event_triggers[i]->callback(data, this);
+        }
+    }
 
 }
 
@@ -210,6 +218,7 @@ void spiral::Start (spiral::Window* window) {
         window->chapter_frame(window);
 
         if (delta_time.count() >= tick_length) { 
+            window->tick();
             window->chapter_tick(window);
             prev_tick_time = curr_tick_time;
         }

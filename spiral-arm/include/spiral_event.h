@@ -10,6 +10,11 @@ namespace spiral {
         EVENT_KEYDOWN
     };
 
+    struct EventTrigger {
+        spiral::Event event;
+        void (*callback)(void*, spiral::Window*);
+    };
+
     void AddTrigger (spiral::Event e, void (*callback)(void*, spiral::Window*), spiral::Window* window);
 
 }
