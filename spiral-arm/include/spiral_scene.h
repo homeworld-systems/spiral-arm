@@ -28,9 +28,10 @@ namespace spiral {
 
         std::vector<Sprite*> sprites;
 
-        Scene (int w, int h, void (*init)(spiral::Window*)) : state(STATE_UNINITIALIZED), width(w), height(h) {}
+        Scene (int w, int h, void (*init)(spiral::Window*)) : state(STATE_UNINITIALIZED), width(w), height(h), scene_init(init) {}
 
         friend void spiral::CreateScene (spiral::Scene* &scene, int width, int height, void (*init)(spiral::Window*));
+        friend void spiral::SetScene (spiral::Scene* scene, spiral::Window* window);
         friend void spiral::AddSprite (spiral::Sprite* sprite, spiral::Scene* scene);
 
     };

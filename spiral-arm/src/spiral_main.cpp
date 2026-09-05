@@ -8,6 +8,7 @@
 # include <SDL3/SDL_render.h>
 
 # include <spiral_graphics.h>
+# include <spiral_event.h>
 
 void spiral::InitWindow (spiral::Window* &window, int width, int height, int scale, const char* name) {
 
@@ -36,6 +37,16 @@ bool spiral::Window::update () {
 
         if (e.type == SDL_EVENT_KEY_UP && e.key.key == SDLK_ESCAPE) 
             return false;
+
+        if (e.type == SDL_EVENT_KEY_DOWN) {
+
+            for (const auto& [event, callback] : event_triggers) {
+                if (event == spiral::Event::EVENT_KEYDOWN) {
+                    callback(&(e.key.key), this);
+                }
+            }
+
+        }
 
     }
 
@@ -198,13 +209,13 @@ void spiral::Start (spiral::Window* window) {
 
         window->chapter_frame(window);
 
-        if (delta_time.count() >= tick_length) {
+        if (delta_time.count() >= tick_length) { 
             window->chapter_tick(window);
             prev_tick_time = curr_tick_time;
         }
         
     } while (window->update());
-    
+
 }
 
 void spiral::SwitchChapter (void (*chapter_init)(spiral::Window*), void (*chapter_frame)(spiral::Window*), void (*chapter_tick)(spiral::Window*), spiral::Window* window) {

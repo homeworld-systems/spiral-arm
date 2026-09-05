@@ -6,6 +6,7 @@ void spiral::CreateScene (spiral::Scene* &scene, int width, int height, void (*i
 
 void spiral::SetScene (spiral::Scene* scene, spiral::Window* window) {
     window->scene = scene;
+    scene->scene_init(window);
 }
 
 void spiral::CreateSprite (spiral::Sprite* &sprite, int h, int k) {
