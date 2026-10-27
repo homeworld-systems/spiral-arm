@@ -81,6 +81,8 @@ if (SPIRAL_ARM_TEST)
         add_executable(spiral_arm_test test/main.cpp)
     endif()
 
+    target_sources(spiral_arm_test PRIVATE test/constants.cpp)
+
     set_target_properties(spiral_arm_test PROPERTIES RUNTIME_OUTPUT_DIRECTORY "../dest")
 
     target_include_directories(spiral_arm_test PUBLIC "test/include")

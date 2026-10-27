@@ -1,7 +1,7 @@
 # include <spiral_scene.h>
 
-void spiral::CreateScene (spiral::Scene* &scene, int width, int height, void (*init)(spiral::Window*)) {
-    scene = new Scene(width, height, init);
+void spiral::CreateScene (spiral::Scene* &scene, int width, int height, spiral::Map* map, void (*init)(spiral::Window*)) {
+    scene = new Scene(width, height, map, init);
 }
 
 void spiral::SetScene (spiral::Scene* scene, spiral::Window* window) {

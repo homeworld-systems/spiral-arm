@@ -4,14 +4,19 @@
 # include <algorithm>
 # include <iostream>
 
+# include <inttypes.h>
+
 # include <SDL3/SDL.h>
 # include <SDL3/SDL_render.h>
 
+# include <spiral_scene.h>
 # include <spiral_graphics.h>
 # include <spiral_event.h>
+# include <spiral_constants.h>
 
 void spiral::InitWindow (spiral::Window* &window, int width, int height, int scale, const char* name) {
 
+    printf("SPIRAL ARM.\n");
     window = new spiral::Window(width, height, scale, name);
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -46,6 +51,22 @@ bool spiral::Window::update () {
 
     }
 
+    // REDRAW SCENE. FIRST STEP: DRAW MAP
+
+    for (int i = 0; i < scene->map->width * scene->map->height; i++) {
+        // REPLACE THIS LATER.
+        int x = i % scene->map->width * spiral::TILE_SIZE;
+        int y = i / scene->map->width * spiral::TILE_SIZE;
+        switch (scene->map->tiles[i]) {
+            case 0: DrawRectangle(x, y, spiral::TILE_SIZE, spiral::TILE_SIZE, spiral::COLOR_BLACK, this);
+            break;
+            case 1: DrawRectangle(x, y, spiral::TILE_SIZE, spiral::TILE_SIZE, spiral::COLOR_WHITE, this);
+            break;
+        }
+    }
+
+    // DRAW SPRITES
+
     unsigned char* pixels;
     int pitch;
   
@@ -73,9 +94,7 @@ bool spiral::Window::update () {
 }
 
 void spiral::Window::tick () {
-
-    std::vector<int> called_events = std::vector<int>();
-
+    
     for (int i = 0; i < event_triggers.size(); i++) {
         for (const auto& [event, data] : event_queue) {
             event_triggers[i]->callback(data, this);
@@ -117,6 +136,7 @@ void spiral::DrawRectangle (int x, int y, int w, int e, spiral::Color color, spi
     for (int k = y; k < y + clamped_height; k++) {
         for (int h = x; h < x + clamped_width; h++) {
             window->buffer[(uint32_t)h + (uint32_t)k * window->width] = color;
+            SDL_Log("%" PRIX32 ",", window->buffer[(uint32_t)h + (uint32_t)k * window->width]);
         }
     }
 
