@@ -9,27 +9,24 @@ namespace spiral {
 
     struct Tileset {
 
-        uint16_t indices[256];
-        Image  textures[256];
+        const uint16_t* indices;
+        const Image* textures;
 
-        Tileset(const uint16_t i[], const Image t[]) {
-            memcpy(indices, i, 256 * sizeof(uint8_t)); // when will this size ever change.
-            memcpy(textures, t, 256 * sizeof(Image)); // when will this size ever change(!!!!)
-        }
+        Tileset(const uint16_t i[], const Image t[]) : indices(i), textures(t) {}
 
     };
 
     struct Map {
 
-        int width;
-        int height;
+        const int width;
+        const int height;
 
         uint16_t* tiles;
         uint8_t* terrain;
 
         Tileset tileset;
 
-        Map(int w, int h, uint16_t* tls, uint8_t* trn, Tileset tst) : width(w), height(h), tiles(tls), terrain(trn), tileset(tst) {}
+        Map(const int w, const int h, uint16_t tls[], uint8_t trn[], Tileset tst) : width(w), height(h), tiles(tls), terrain(trn), tileset(tst) {}
 
     };
 

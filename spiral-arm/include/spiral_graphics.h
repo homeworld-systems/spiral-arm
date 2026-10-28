@@ -19,12 +19,12 @@ namespace spiral {
     
     struct Image {
 
-        int width;
-        int height;
+        const int width;
+        const int height;
         Color* pixels;
         
         Image () : width(0), height(0), pixels(nullptr) {}
-        Image (int w, int h, Color* p) : width(w), height(h), pixels(p) {}
+        Image (const int w, const int h, Color* p) : width(w), height(h), pixels(p) {}
 
     };
 
