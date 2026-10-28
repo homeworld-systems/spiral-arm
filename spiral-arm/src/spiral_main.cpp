@@ -63,7 +63,9 @@ bool spiral::Window::update () {
             case 1: DrawRectangle(x, y, spiral::TILE_SIZE, spiral::TILE_SIZE, spiral::COLOR_WHITE, this);
             break;
         }
+        SDL_Log("%u @ %i, %i;", scene->map->tiles[i], x, y);
     }
+    SDL_Log("\n");
 
     // DRAW SPRITES
 
@@ -136,7 +138,6 @@ void spiral::DrawRectangle (int x, int y, int w, int e, spiral::Color color, spi
     for (int k = y; k < y + clamped_height; k++) {
         for (int h = x; h < x + clamped_width; h++) {
             window->buffer[(uint32_t)h + (uint32_t)k * window->width] = color;
-            SDL_Log("%" PRIX32 ",", window->buffer[(uint32_t)h + (uint32_t)k * window->width]);
         }
     }
 

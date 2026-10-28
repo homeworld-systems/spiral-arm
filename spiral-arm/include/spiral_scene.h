@@ -1,10 +1,23 @@
 # include <spiral_main.h>
+# include <spiral_graphics.h>
 
 # ifndef SPIRAL_SCENE_H
 
 # define SPIRAL_SCENE_H
 
 namespace spiral {
+
+    struct Tileset {
+
+        uint16_t indices[256];
+        Image  textures[256];
+
+        Tileset(const uint16_t i[], const Image t[]) {
+            memcpy(indices, i, 256 * sizeof(uint8_t)); // when will this size ever change.
+            memcpy(textures, t, 256 * sizeof(Image)); // when will this size ever change(!!!!)
+        }
+
+    };
 
     struct Map {
 
@@ -14,7 +27,9 @@ namespace spiral {
         uint16_t* tiles;
         uint8_t* terrain;
 
-        Map(int w, int h, uint16_t* tl, uint8_t* tr) : width(w), height(h), tiles(tl), terrain(tr) {}
+        Tileset tileset;
+
+        Map(int w, int h, uint16_t* tls, uint8_t* trn, Tileset tst) : width(w), height(h), tiles(tls), terrain(trn), tileset(tst) {}
 
     };
 
