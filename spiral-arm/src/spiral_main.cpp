@@ -111,6 +111,13 @@ void spiral::Window::tick () {
 void spiral::Window::gracefulExit () {
     
     delete buffer;
+    delete tiledata;
+
+    for (auto t: event_triggers) {
+        delete t;
+    }
+
+    event_triggers.clear();
     
     SDL_DestroyTexture(__texture);
     SDL_DestroyRenderer(__renderer);
