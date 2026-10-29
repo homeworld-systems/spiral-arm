@@ -43,8 +43,6 @@ namespace chapter1 {
         spiral::Scene* scene_test;
         spiral::Sprite* chara;
 
-        ;
-
         uint8_t terrain[320]{};
 
         spiral::Map* map;

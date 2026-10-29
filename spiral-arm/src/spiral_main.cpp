@@ -29,6 +29,8 @@ void spiral::InitWindow (spiral::Window* &window, int width, int height, int sca
 
     spiral::Clear(spiral::COLOR_WHITE, window);
 
+    // TODO: LOAD ALL TILE DATA HERE
+
 }
 
 bool spiral::Window::update () {

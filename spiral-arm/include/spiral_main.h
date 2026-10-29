@@ -8,6 +8,8 @@
 # include <SDL3/SDL.h>
 # include <SDL3/SDL_render.h>
 
+# include <spiral_graphics.h>
+
 namespace spiral {
 
     // Forward declarations because SPIRAL_MAIN_H should never reference other Spiral Arm files
@@ -40,6 +42,9 @@ namespace spiral {
 
         std::vector<spiral::EventTrigger*> event_triggers;
         std::unordered_multimap<spiral::Event, void*> event_queue;
+
+        // TILE DATA HELPER
+        spiral::Image* tiledata[((int)UINT16_MAX + 1)];
 
         public:
         spiral::Scene* scene;

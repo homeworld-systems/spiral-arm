@@ -7,15 +7,6 @@
 
 namespace spiral {
 
-    struct Tileset {
-
-        const uint16_t* indices;
-        const Image* textures;
-
-        Tileset(const uint16_t i[], const Image t[]) : indices(i), textures(t) {}
-
-    };
-
     struct Map {
 
         const int width;
