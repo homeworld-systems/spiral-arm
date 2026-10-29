@@ -57,6 +57,7 @@ bool spiral::Window::update () {
         // REPLACE THIS LATER.
         int x = i % scene->map->width * spiral::TILE_SIZE;
         int y = i / scene->map->width * spiral::TILE_SIZE;
+        printf("%i\n", i);
         switch (scene->map->tiles[i]) {
             case 0: DrawRectangle(x, y, spiral::TILE_SIZE, spiral::TILE_SIZE, spiral::COLOR_BLACK, this);
             break;
@@ -245,6 +246,10 @@ void spiral::Start (spiral::Window* window) {
         }
         
     } while (window->update());
+
+    window->gracefulExit();
+
+    delete window;
 
 }
 

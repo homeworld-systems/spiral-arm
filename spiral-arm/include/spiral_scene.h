@@ -24,16 +24,21 @@ namespace spiral {
         uint16_t* tiles;
         uint8_t* terrain;
 
-        Tileset tileset;
-
-        Map(const int w, const int h, uint16_t tls[], uint8_t trn[], Tileset tst) : width(w), height(h), tiles(tls), terrain(trn), tileset(tst) {}
+        Map(const int w, const int h) : width(w), height(h) {}
 
     };
 
+    void CreateMap (spiral::Map* &map, const int width, const int height);
+
+    // it's time to make a scene.
     void CreateScene (spiral::Scene* &scene, int width, int height, spiral::Map* map, void (*init)(spiral::Window*));
+    void DestroyScene (spiral::Scene* &scene);
+
     void SetScene (spiral::Scene* scene, spiral::Window* window);
 
     void CreateSprite (spiral::Sprite* &sprite, int h, int k);
+    void DestroySprite (spiral::Sprite* &sprite);
+
     void AddSprite (spiral::Sprite* sprite, spiral::Scene* scene);
     void SetMap (spiral::Map* map, spiral::Scene* scene);
     void AddPlayer (spiral::Sprite* sprite, spiral::Window* window);

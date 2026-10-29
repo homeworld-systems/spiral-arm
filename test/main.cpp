@@ -43,11 +43,30 @@ namespace chapter1 {
         spiral::Scene* scene_test;
         spiral::Sprite* chara;
 
-        uint16_t* tiles = new uint16_t[320]{1, 1};
+        ;
 
-        uint8_t* terrain = new uint8_t[320]{};
+        uint8_t terrain[320]{};
 
-        spiral::Map* map = new spiral::Map(20, 16, tiles, terrain);
+        spiral::Map* map;
+        spiral::CreateMap(map, 16, 12);
+
+        map->tiles = new uint16_t[192]{
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        };
+        map->terrain = new uint8_t[192]{};
+
+        //new spiral::Map(20, 16, tiles, terrain);
 
         // spiral::LoadScene(scene_test, "res/scenes/scene_test.star_rm");
         spiral::CreateScene(scene_test, 20, 16, map, chapter1::scene_test::scr_init);
@@ -68,6 +87,10 @@ namespace chapter1 {
     }
 
     void scr_tick (spiral::Window* window) {
+
+    }
+
+    void scr_end (spiral::Window* window) {
 
     }
 
