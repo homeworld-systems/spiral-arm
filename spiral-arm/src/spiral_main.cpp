@@ -53,13 +53,7 @@ bool spiral::Window::update () {
 
     }
 
-    // REDRAW SCENE. FIRST STEP: DRAW MAP
-
-    // TESTING REMOVE LATER
-    spiral::Blit(0, 0, &tiledata[scene->map->tiles[0]], false, this);
-
     for (int i = 0; i < scene->map->width * scene->map->height; i++) {
-        // REPLACE THIS LATER.
         int x = i % scene->map->width * spiral::TILE_SIZE;
         int y = i / scene->map->width * spiral::TILE_SIZE;
         spiral::Blit(x, y, &tiledata[scene->map->tiles[i]], false, this); // whoops
