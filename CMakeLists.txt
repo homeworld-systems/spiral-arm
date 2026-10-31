@@ -47,6 +47,7 @@ add_library(spiral-arm STATIC
     spiral-arm/src/spiral_event.cpp
     spiral-arm/src/spiral_main.cpp
     spiral-arm/src/spiral_scene.cpp
+    spiral-arm/src/spiral_graphics.cpp
 )
 
 # Library linking

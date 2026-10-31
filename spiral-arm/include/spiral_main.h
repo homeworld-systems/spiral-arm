@@ -43,8 +43,10 @@ namespace spiral {
         std::vector<spiral::EventTrigger*> event_triggers;
         std::unordered_multimap<spiral::Event, void*> event_queue;
 
-        // TILE DATA HELPER
-        spiral::Image* tiledata[((int)UINT16_MAX + 1)];
+        /* Data loaded on game start. 
+         * Should be deleted on termination.
+         */
+        spiral::Image* tiledata;
 
         public:
         spiral::Scene* scene;
@@ -52,6 +54,7 @@ namespace spiral {
         std::vector<spiral::Sprite*> players;
 
         bool update ();
+        void preloadData ();
         void tick ();
         void gracefulExit ();
 
@@ -67,12 +70,14 @@ namespace spiral {
         friend void Clear (spiral::Color color, spiral::Window* window);
         friend void DrawPixel (int x, int y, spiral::Color color, spiral::Window* window);
         friend void DrawRectangle (int x, int y, int w, int h, spiral::Color color, spiral::Window* window);
+        friend const void Blit (int x, int y, spiral::Image* image, bool transparency, spiral::Window* window);
 
     };
 
     void Clear (spiral::Color color, spiral::Window* window);
     void DrawPixel (int x, int y, spiral::Color color, spiral::Window* window);
     void DrawRectangle (int x, int y, int w, int h, spiral::Color color, spiral::Window* window);
+    const void Blit (int x, int y, spiral::Image* image, bool transparency, spiral::Window* window);
 
     void InitCamera (spiral::Camera* &camera, int w, int h, spiral::Window* window);
 

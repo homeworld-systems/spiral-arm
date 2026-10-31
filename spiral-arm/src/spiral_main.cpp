@@ -55,18 +55,14 @@ bool spiral::Window::update () {
 
     // REDRAW SCENE. FIRST STEP: DRAW MAP
 
+    // TESTING REMOVE LATER
+    spiral::Blit(0, 0, &tiledata[scene->map->tiles[0]], false, this);
+
     for (int i = 0; i < scene->map->width * scene->map->height; i++) {
         // REPLACE THIS LATER.
         int x = i % scene->map->width * spiral::TILE_SIZE;
         int y = i / scene->map->width * spiral::TILE_SIZE;
-        printf("%i\n", i);
-        switch (scene->map->tiles[i]) {
-            case 0: DrawRectangle(x, y, spiral::TILE_SIZE, spiral::TILE_SIZE, spiral::COLOR_BLACK, this);
-            break;
-            case 1: DrawRectangle(x, y, spiral::TILE_SIZE, spiral::TILE_SIZE, spiral::COLOR_WHITE, this);
-            break;
-        }
-        SDL_Log("%u @ %i, %i;", scene->map->tiles[i], x, y);
+        spiral::Blit(x, y, &tiledata[scene->map->tiles[i]], false, this); // whoops
     }
     SDL_Log("\n");
 
@@ -111,7 +107,7 @@ void spiral::Window::tick () {
 void spiral::Window::gracefulExit () {
     
     delete buffer;
-    delete tiledata;
+    delete[] tiledata;
 
     for (auto t: event_triggers) {
         delete t;
@@ -153,85 +149,109 @@ void spiral::DrawRectangle (int x, int y, int w, int e, spiral::Color color, spi
 
 }
 
-// const void spiral::Window::blit (int x, int y, spiral::Image* image, bool transparency) { // interface for all blit modes
+const void spiral::Blit (int x, int y, spiral::Image* image, bool transparency, spiral::Window* window) { // interface for all blit modes
 
-//     if ((height - y) < 0) { return; }
+    if ((window->height - y) < 0) return; // why would it be tho??
 
-//     if (transparency) { // PARTIAL TRANSPARENCY (REQUIRES TRANSPARENCY VALUES)
+    if (transparency) { // PARTIAL TRANSPARENCY (REQUIRES TRANSPARENCY VALUES)
 
-//         for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
+        for (int r = 0; r < std::clamp(image->height, 0, window->height - y); r++) {
 
-//             uint32_t* from = image->pixels + (uint32_t)r * image->width;
-//             uint32_t* to = buffer + ((uint32_t)y + r) * width + (uint32_t)x;
+            uint32_t* from = image->pixels + (uint32_t)r * image->width;
+            uint32_t* to = window->buffer + ((uint32_t)y + r) * window->width + (uint32_t)x;
 
-//             if ((uint32_t)((width - x) * sizeof(Color)) <= 0) {
+            if ((uint32_t)((window->width - x) * sizeof(Color)) <= 0) continue;
 
-//                 continue;
+            uint32_t length = std::clamp(
 
-//             }
+                (uint32_t)(sizeof(Color) * image->width),
+                (uint32_t)0, (uint32_t)((window->width - x) * sizeof(Color))
 
-//             uint32_t length = std::clamp(
+            );
 
-//                 (uint32_t)(sizeof(Color) * image->width),
-//                 (uint32_t)0, (uint32_t)((width - x) * sizeof(Color))
+            uint32_t offset = 0;
 
-//             );
+            while (offset < length) {
 
-//             uint32_t offset = 0;
+                if ((from[offset] & 0xFF000000) == 0xFF000000) {
 
-//             while (offset < length) {
+                    to[offset] = from[offset];
 
-//                 if ((from[offset] & 0xFF000000) == 0xFF000000) {
-
-//                     to[offset] = from[offset];
-
-//                 }
+                }
                 
-//                 offset += sizeof(Color);
+                offset += sizeof(Color);
 
-//             }
+            }
 
-//             offset = 1;
+            offset = 1;
 
-//         }
+        }
 
-//     } else { // NO TRANSPARENCY (TRANSPARENT VALUES WILL BE IGNORED) (FASTER)
+    } else { // NO TRANSPARENCY (TRANSPARENT VALUES WILL BE IGNORED) (FASTER)
 
-//         for (int r = 0; r < std::clamp(image->height, 0, height - y); r++) {
+        for (int r = 0; r < std::clamp(image->height, 0, window->height - y); r++) {
 
-//             if ((uint32_t)((width - x) * sizeof(Color)) <= 0) {
-
-//                 continue;
-
-//             }
+            if ((uint32_t)((window->width - x) * sizeof(Color)) <= 0) continue;
             
-//             memcpy(
+            memcpy(
 
-//                 buffer + ((uint32_t)y + r) * width + (uint32_t)x,
-//                 image->pixels + (uint32_t)r * image->width,
-//                 std::clamp(
+                window->buffer + ((uint32_t)y + r) * window->width + (uint32_t)x,
+                image->pixels + (uint32_t)r * image->width,
+                std::clamp(
 
-//                     (uint32_t)(sizeof(Color) * image->width),
-//                     (uint32_t)0,
-//                     (uint32_t)((width - x) * sizeof(Color))
+                    (uint32_t)(sizeof(Color) * image->width),
+                    (uint32_t)0,
+                    (uint32_t)((window->width - x) * sizeof(Color))
                     
-//                 ) // all the casts to uint32_t are to ensure parity across architectures
+                ) // all the casts to uint32_t are to ensure parity across architectures
 
-//             );
+            );
 
-//         }
+        }
 
-//         return;
+        return;
 
-//     }
+    }
 
-// }
+}
 
 void spiral::InitCamera (spiral::Camera* &camera, int w, int h, spiral::Window* window) {
 
 }
 
+void spiral::Window::preloadData () {
+
+    tiledata = new spiral::Image[((int)UINT16_MAX + 1)];
+    
+    /*
+     * REPLACE THIS WITH THE REAL TILEMAP LOADING FUNCTION, BUT:
+     */
+
+    for (int i = 0; i <= UINT16_MAX; i++) {
+        spiral::Color color;
+        switch (i % 6) {
+            case 0: color = COLOR_RED;
+            break;
+            case 1: color = COLOR_YELLOW;
+            break;
+            case 2: color = COLOR_GREEN;
+            break;
+            case 3: color = COLOR_CYAN;
+            break;
+            case 4: color = COLOR_BLUE;
+            break;
+            case 5: color = COLOR_MAGENTA;
+            break;
+        }
+        tiledata[i] = *spiral::SolidImage(TILE_SIZE, TILE_SIZE, color);
+    }
+
+}
+
 void spiral::Start (spiral::Window* window) {
+
+    /* Preloaded data */
+    window->preloadData();
     
     // Initialization things
 
