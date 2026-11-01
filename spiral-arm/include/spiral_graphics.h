@@ -33,6 +33,7 @@ namespace spiral {
     };
 
     Image* SolidImage (int width, int height, Color color);
+    Image* LoadFromSource (const char* src);
 
 }
 
