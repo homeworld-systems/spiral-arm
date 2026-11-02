@@ -100,7 +100,14 @@ void spiral::Window::tick () {
 void spiral::Window::gracefulExit () {
     
     delete buffer;
+
+    for (int i = 0; i < (int)UINT16_MAX + 1; i++) {
+        delete tiledata[i];
+        tiledata[i] = nullptr;
+    }
+    
     delete[] tiledata;
+    tiledata = nullptr;
 
     for (auto t: event_triggers) {
         delete t;
