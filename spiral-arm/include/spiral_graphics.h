@@ -33,7 +33,11 @@ namespace spiral {
     };
 
     Image* SolidImage (int width, int height, Color color);
+    Image** Subdivide (Image* src, int& number, int dx, int dy, int width, int height);
+
     Image* LoadFromSource (const char* src);
+
+    void DestroyImage (Image* img);
 
 }
 

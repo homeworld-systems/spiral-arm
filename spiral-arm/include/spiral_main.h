@@ -26,6 +26,8 @@ namespace spiral {
     typedef uint32_t Color;
 
     void InitWindow (spiral::Window* &window, int width, int height, int scale, const char* name);
+    
+    void LoadTileData(spiral::Image** tilemap, spiral::Window* window);
 
     class Window {
 
@@ -46,7 +48,7 @@ namespace spiral {
         /* Data loaded on game start. 
          * Should be deleted on termination.
          */
-        spiral::Image* tiledata;
+        spiral::Image** tiledata;
 
         public:
         spiral::Scene* scene;
@@ -71,6 +73,8 @@ namespace spiral {
         friend void DrawPixel (int x, int y, spiral::Color color, spiral::Window* window);
         friend void DrawRectangle (int x, int y, int w, int h, spiral::Color color, spiral::Window* window);
         friend const void Blit (int x, int y, spiral::Image* image, bool transparency, spiral::Window* window);
+
+        friend void spiral::LoadTileData(spiral::Image** tilemap, spiral::Window* window);
 
     };
 

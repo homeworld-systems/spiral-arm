@@ -56,9 +56,8 @@ bool spiral::Window::update () {
     for (int i = 0; i < scene->map->width * scene->map->height; i++) {
         int x = i % scene->map->width * spiral::TILE_SIZE;
         int y = i / scene->map->width * spiral::TILE_SIZE;
-        spiral::Blit(x, y, &tiledata[scene->map->tiles[i]], false, this); // whoops
+        spiral::Blit(x, y, tiledata[scene->map->tiles[i]], false, this); // whoops
     }
-    SDL_Log("\n");
 
     // DRAW SPRITES
 
@@ -213,39 +212,9 @@ void spiral::InitCamera (spiral::Camera* &camera, int w, int h, spiral::Window* 
 
 }
 
-void spiral::Window::preloadData () {
-
-    tiledata = new spiral::Image[((int)UINT16_MAX + 1)];
-    
-    /*
-     * REPLACE THIS WITH THE REAL TILEMAP LOADING FUNCTION, BUT:
-     */
-
-    for (int i = 0; i <= UINT16_MAX; i++) {
-        spiral::Color color;
-        switch (i % 6) {
-            case 0: color = COLOR_RED;
-            break;
-            case 1: color = COLOR_YELLOW;
-            break;
-            case 2: color = COLOR_GREEN;
-            break;
-            case 3: color = COLOR_CYAN;
-            break;
-            case 4: color = COLOR_BLUE;
-            break;
-            case 5: color = COLOR_MAGENTA;
-            break;
-        }
-        tiledata[i] = *spiral::SolidImage(TILE_SIZE, TILE_SIZE, color);
-    }
-
-}
-
 void spiral::Start (spiral::Window* window) {
 
-    /* Preloaded data */
-    window->preloadData();
+    // do load checks here. che
     
     // Initialization things
 
@@ -286,4 +255,8 @@ void spiral::SwitchChapter (void (*chapter_init)(spiral::Window*), void (*chapte
 
     window->chapter_init(window);
 
+}
+
+void spiral::LoadTileData (spiral::Image** tilemap, spiral::Window* window) {
+    window->tiledata = tilemap;
 }
