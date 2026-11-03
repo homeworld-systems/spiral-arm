@@ -47,6 +47,7 @@ spiral::Image* spiral::LoadFromSource (const char* src) {
 }
 
 void spiral::DestroyImage (spiral::Image* img) {
+    Color* px = img->pixels;
     delete img;
     img = nullptr;
 }

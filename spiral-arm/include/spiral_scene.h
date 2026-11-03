@@ -29,7 +29,7 @@ namespace spiral {
 
     void CreateSprite (spiral::Sprite* &sprite, int h, int k);
     void DestroySprite (spiral::Sprite* &sprite);
-
+ 
     void AddSprite (spiral::Sprite* sprite, spiral::Scene* scene);
     void SetMap (spiral::Map* map, spiral::Scene* scene);
     void AddPlayer (spiral::Sprite* sprite, spiral::Window* window);

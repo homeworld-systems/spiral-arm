@@ -27,7 +27,7 @@ namespace spiral {
 
     void InitWindow (spiral::Window* &window, int width, int height, int scale, const char* name);
     
-    void LoadTileData(spiral::Image** tilemap, spiral::Window* window);
+    void LoadTileData (spiral::Image** tilemap, int number, spiral::Window* window);
 
     class Window {
 
@@ -49,6 +49,7 @@ namespace spiral {
          * Should be deleted on termination.
          */
         spiral::Image** tiledata;
+        int tilecount;
 
         public:
         spiral::Scene* scene;
@@ -74,7 +75,7 @@ namespace spiral {
         friend void DrawRectangle (int x, int y, int w, int h, spiral::Color color, spiral::Window* window);
         friend const void Blit (int x, int y, spiral::Image* image, bool transparency, spiral::Window* window);
 
-        friend void spiral::LoadTileData(spiral::Image** tilemap, spiral::Window* window);
+        friend void LoadTileData (spiral::Image** tilemap, int number, spiral::Window* window);
 
     };
 

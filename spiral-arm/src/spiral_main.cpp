@@ -101,7 +101,7 @@ void spiral::Window::gracefulExit () {
     
     delete buffer;
 
-    for (int i = 0; i < (int)UINT16_MAX + 1; i++) {
+    for (int i = 0; i < tilecount; i++) {
         delete tiledata[i];
         tiledata[i] = nullptr;
     }
@@ -264,6 +264,7 @@ void spiral::SwitchChapter (void (*chapter_init)(spiral::Window*), void (*chapte
 
 }
 
-void spiral::LoadTileData (spiral::Image** tilemap, spiral::Window* window) {
+void spiral::LoadTileData (spiral::Image** tilemap, int number, spiral::Window* window) {
     window->tiledata = tilemap;
+    window->tilecount = number;
 }

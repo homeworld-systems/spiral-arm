@@ -100,7 +100,8 @@ int main () {
     spiral::InitWindow(window, 320, 240, 6, "SPIRAL ARM TEST");
     spiral::Image* tilemap = spiral::LoadFromSource("C://Users/Administrator/Documents/GitHub/spiral-arm/test/miscellaneous/tilemap.png");
     int num;
-    spiral::LoadTileData(spiral::Subdivide(tilemap, num, 0, 0, 20, 20), window);
+    spiral::Image** tiles = spiral::Subdivide(tilemap, num, 0, 0, 20, 20);
+    spiral::LoadTileData(tiles, num, window);
     spiral::DestroyImage(tilemap);
     spiral::SwitchChapter(chapter1::scr_init, chapter1::scr_frame, chapter1::scr_tick, window);
     spiral::Start(window);

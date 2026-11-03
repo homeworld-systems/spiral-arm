@@ -3,6 +3,7 @@
 # define SPIRAL_GRAPHICS_H
 
 # include <cstdint>
+# include <chrono>
 
 namespace spiral {
 
@@ -29,6 +30,16 @@ namespace spiral {
         ~Image () {
             delete[] pixels;
         }
+
+    };
+
+    struct Animation {
+
+        Image* frames;
+        int frame_delay;
+        int frame_count;
+
+        std::chrono::system_clock::time_point start_time;
 
     };
 
