@@ -9,6 +9,7 @@
 # include <SDL3/SDL_render.h>
 
 # include <spiral_graphics.h>
+# include <spiral_event.h>
 
 namespace spiral {
 
@@ -42,7 +43,7 @@ namespace spiral {
         SDL_Renderer* __renderer;
         SDL_Texture* __texture;
 
-        std::vector<spiral::EventTrigger*> event_triggers;
+        std::vector<spiral::EventTrigger> event_triggers;
         std::unordered_multimap<spiral::Event, void*> event_queue;
 
         /* Data loaded on game start. 
@@ -52,7 +53,7 @@ namespace spiral {
         int tilecount;
 
         public:
-        spiral::Scene* scene;
+        spiral::Scene* scene = nullptr;
         spiral::Camera* camera;
         std::vector<spiral::Sprite*> players;
 
@@ -100,6 +101,8 @@ namespace spiral {
         friend void spiral::InitCamera (spiral::Camera* &camera, int w, int h, spiral::Window* window);
 
     };
+
+    void DestroyCamera (spiral::Camera* &camera);
 
     void Start (spiral::Window* window);
     void SwitchChapter (void (*chapter_init)(spiral::Window*), void (*chapter_frame)(spiral::Window*), void (*chapter_tick)(spiral::Window*), spiral::Window* window);

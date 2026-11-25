@@ -45,8 +45,7 @@ namespace chapter1 {
 
         uint8_t terrain[320]{};
 
-        spiral::Map* map;
-        spiral::CreateMap(map, 16, 12);
+        spiral::Map* map = new spiral::Map(16, 12);
 
         map->tiles = new uint16_t[192]{
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

@@ -1,0 +1,6 @@
+TODO LIST:
+ * add game construct memory manager (CreateX would add construct to array stored in Window, deletion would be handled by Window)
+ * add menus
+ * audio
+ * ffmpeg cutscenes
+ * work on documentation

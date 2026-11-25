@@ -14,18 +14,16 @@ namespace spiral {
 
         uint16_t* tiles;
         uint8_t* terrain;
-
+        
         Map(const int w, const int h) : width(w), height(h) {}
 
     };
-
-    void CreateMap (spiral::Map* &map, const int width, const int height);
 
     // it's time to make a scene.
     void CreateScene (spiral::Scene* &scene, int width, int height, spiral::Map* map, void (*init)(spiral::Window*));
     void DestroyScene (spiral::Scene* &scene);
 
-    void SetScene (spiral::Scene* scene, spiral::Window* window);
+    void SetScene (spiral::Scene* &scene, spiral::Window* window);
 
     void CreateSprite (spiral::Sprite* &sprite, int h, int k);
     void DestroySprite (spiral::Sprite* &sprite);
@@ -51,7 +49,7 @@ namespace spiral {
 
         friend bool spiral::Window::update ();
         friend void spiral::CreateScene (spiral::Scene* &scene, int width, int height, spiral::Map* map, void (*init)(spiral::Window*));
-        friend void spiral::SetScene (spiral::Scene* scene, spiral::Window* window);
+        friend void spiral::SetScene (spiral::Scene* &scene, spiral::Window* window);
         friend void spiral::AddSprite (spiral::Sprite* sprite, spiral::Scene* scene);
 
     };

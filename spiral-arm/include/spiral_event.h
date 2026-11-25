@@ -6,7 +6,9 @@
 
 namespace spiral {
 
-    enum class Event {
+    class Window;
+
+    enum struct Event {
         EVENT_KEYDOWN
     };
 

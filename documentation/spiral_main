@@ -1,0 +1,13 @@
+SPIRAL ARM BASIC DOCUMENTATION
+
+--- GAME CONSTRUCTS ---
+Window
+Camera
+Scene
+Sprite
+
+--- GAME DATA ---
+Image
+Map
+Event
+EventTrigger

@@ -33,6 +33,11 @@ void spiral::InitWindow (spiral::Window* &window, int width, int height, int sca
 
 }
 
+void spiral::DestroyCamera (spiral::Camera* &camera) {
+    delete camera;
+    camera = nullptr;
+}
+
 bool spiral::Window::update () {
 
     SDL_Event e;
@@ -91,27 +96,26 @@ void spiral::Window::tick () {
     
     for (int i = 0; i < event_triggers.size(); i++) {
         for (const auto& [event, data] : event_queue) {
-            event_triggers[i]->callback(data, this);
+            event_triggers[i].callback(data, this);
         }
     }
 
 }
 
 void spiral::Window::gracefulExit () {
+
+    // Destroy all game constructs.
+    DestroyScene(scene);
+    DestroyCamera(camera);
     
     delete buffer;
 
     for (int i = 0; i < tilecount; i++) {
-        delete tiledata[i];
-        tiledata[i] = nullptr;
+        DestroyImage(tiledata[i]);
     }
     
     delete[] tiledata;
     tiledata = nullptr;
-
-    for (auto t: event_triggers) {
-        delete t;
-    }
 
     event_triggers.clear();
     

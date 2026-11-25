@@ -1,9 +1,5 @@
 # include <spiral_scene.h>
 
-void spiral::CreateMap (spiral::Map* &map, const int width, const int height) {
-    map = new Map(width, height);
-}
-
 void spiral::CreateScene (spiral::Scene* &scene, int width, int height, spiral::Map* map, void (*init)(spiral::Window*)) {
     scene = new Scene(width, height, map, init);
 }
@@ -13,7 +9,8 @@ void spiral::DestroyScene (spiral::Scene* &scene) {
     scene = nullptr;
 }
 
-void spiral::SetScene (spiral::Scene* scene, spiral::Window* window) {
+void spiral::SetScene (spiral::Scene* &scene, spiral::Window* window) {
+    DestroyScene(window->scene);
     window->scene = scene;
     scene->scene_init(window);
 }
